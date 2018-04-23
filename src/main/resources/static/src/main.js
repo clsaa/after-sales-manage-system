@@ -1,24 +1,28 @@
 import Vue from 'vue'
+
+import 'normalize.css/normalize.css'// A modern alternative to CSS resets
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import VueRouter from 'vue-router'
-import App from './App.vue'
+import locale from 'element-ui/lib/locale/lang/en'
 
-import test from './component/Test.vue'
+import './styles/index.scss' // global css
 
-Vue.use(ElementUI)
-Vue.use(VueRouter)
+import App from './App'
+import router from './router'
+import store from './store'
 
-let router = new VueRouter({
-    mode: 'history',
-    routes: [
-        {path: '/test', name: 'test', component: test}
-    ]
-})
+import './icons' // icon
+import './permission' // permission control
 
+Vue.use(ElementUI, { locale })
+
+Vue.config.productionTip = false
 
 new Vue({
-    router,
-    el: '#app',
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: { App }
 })
