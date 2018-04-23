@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  application:
+    name: ms-after-sales
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://sh-cdb-42xoavqj.sql.tencentcdb.com:63280/db_hermes?characterEncoding=utf8
+    username: root
+    password: xiaojie1996
+    driver-class-name: com.mysql.jdbc.Driver
+  webflux:
+    static-path-pattern: /**
+spring.resources.static-locations: classpath:/static/dist

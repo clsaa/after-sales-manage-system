@@ -119,3 +119,9 @@ hs_err_pid*
 
 # Created by .ignore support plugin (hsz.mobi)
 .DS_Store
+
+# NodeJS
+node_modules/
+dist/
+npm-debug.log
+.idea
