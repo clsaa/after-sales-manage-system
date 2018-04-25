@@ -11,9 +11,18 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://sh-cdb-42xoavqj.sql.tencentcdb.com:63280/db_hermes?characterEncoding=utf8
-    username: root
-    password: xiaojie1996
+    username: tangtang
+    password: tangtang520
     driver-class-name: com.mysql.jdbc.Driver
+    max-active: 10
+    max-idle: 5
+    min-idle: 5
+    initial-size: 5
+    max-wait: 10000
   webflux:
     static-path-pattern: /**
 spring.resources.static-locations: classpath:/static/dist
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mappers/*.xml
+  type-aliases-package: com.clsaa.ms.hermes.entity.po
