@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clsaa.ms.hermes.dao.WordOrderCommentDao">
+
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.clsaa.ms.hermes.entity.po.WorkOrderComment">
+    <id column="id" property="id"/>
+    <id column="workOrderId" property="workOrderId"/>
+    <id column="customerId" property="customerId"/>
+    <id column="staffId" property="staffId"/>
+    <id column="content" property="content"/>
+    <id column="cuser" property="cuser"/>
+    <id column="mtime" property="mtime"/>
+    <id column="muser" property="muser"/>
+    <id column="status" property="status"/>
+  </resultMap>
+
+</mapper>

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author RenGuiJie
- * @summary 考试相关服务类
+ * @author 任贵杰
+ * @summary 顾客服务
  * @since 2018/4/26
  */
 @Service

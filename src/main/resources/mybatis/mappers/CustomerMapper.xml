@@ -5,6 +5,21 @@
   <!-- 通用查询映射结果 -->
   <resultMap id="BaseResultMap" type="com.clsaa.ms.hermes.entity.po.Customer">
     <id column="id" property="id"/>
+    <id column="type" property="type"/>
+    <id column="name" property="name"/>
+    <id column="age" property="age"/>
+    <id column="birthday" property="birthday"/>
+    <id column="gender" property="gender"/>
+    <id column="mobile" property="mobile"/>
+    <id column="email" property="email"/>
+    <id column="wechat" property="wechat"/>
+    <id column="qq" property="qq"/>
+    <id column="note" property="note"/>
+    <id column="ctime" property="ctime"/>
+    <id column="cuser" property="cuser"/>
+    <id column="mtime" property="mtime"/>
+    <id column="muser" property="muser"/>
+    <id column="status" property="status"/>
   </resultMap>
 
   <select id="getById" resultMap="BaseResultMap">

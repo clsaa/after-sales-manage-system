@@ -5,8 +5,8 @@ import com.clsaa.ms.hermes.entity.po.Customer;
 /**
  * @author 任贵杰
  * @version v1
- * @summary 视频迁移DAO
- * @since 2018-04-25
+ * @summary 顾客DAO
+ * @since 2018-04-29
  */
 public interface CustomerDao {
 
