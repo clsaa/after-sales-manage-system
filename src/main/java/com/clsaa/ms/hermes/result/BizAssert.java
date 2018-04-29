@@ -156,7 +156,6 @@ public abstract class BizAssert {
 	/**
 	 * 直接抛出参数异常，对应Http 状态码： 400
 	 *
-	 * @param code    业务错误码
 	 * @param message 业务提示信息
 	 * @since 1.0.0
 	 */
@@ -235,7 +234,6 @@ public abstract class BizAssert {
 	/**
 	 * 直接抛出访问被拒绝，对应Http 状态码： 403
 	 *
-	 * @param code    业务错误码
 	 * @param message 业务提示信息
 	 * @since 1.0.0
 	 */
@@ -300,7 +298,6 @@ public abstract class BizAssert {
 	/**
 	 * 是否授权,对应http 状态码 401，如果 expression = false ,则直接抛出异常 {@link UnauthorizedException};
 	 *
-	 * @param result
 	 * @since 1.0.0
 	 */
 	public static void authorized(boolean expression, Object bizCode) {
@@ -335,7 +332,6 @@ public abstract class BizAssert {
 	 * </p>
 	 *
 	 * @param expression
-	 * @param errorCode  业务错误码
 	 * @param message    业务提示信息
 	 * @since 1.0.0
 	 */
@@ -361,7 +357,6 @@ public abstract class BizAssert {
 	/**
 	 * 直接抛出业务失败异常，对应Http 状态码： 417
 	 *
-	 * @param code    业务错误码
 	 * @param message 业务提示信息
 	 * @since 1.0.0
 	 */

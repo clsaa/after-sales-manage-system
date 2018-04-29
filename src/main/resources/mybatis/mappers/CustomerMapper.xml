@@ -27,4 +27,71 @@
     FROM `t_customer`
     WHERE `id` = #{id}
   </select>
+
+  <select id="getByMobile" resultMap="BaseResultMap">
+    SELECT *
+    FROM `t_customer`
+    WHERE `mobile` = #{mobile}
+  </select>
+
+  <insert id="add">
+    INSERT INTO `t_customer` (`id`, `type`, `name`, `age`, `birthday`, `gender`, `mobile`, `email`, `wechat`, `qq`, `note`,
+                              `ctime`, `cuser`, `mtime`, `muser`, `status`)
+    VALUES (#{id}, #{type}, #{name}, #{age}, #{birthday}, #{gender}, #{mobile}, #{email}, #{wechat}, #{qq}, #{note},
+            current_timestamp, #{cuser}, current_timestamp, #{muser}, #{status});
+  </insert>
+
+  <update id="update">
+    UPDATE `t_customer`
+    SET
+      `type`     = #{type},
+      `name`     = #{name},
+      `age`      = #{age},
+      `birthday` = #{birthday},
+      `gender`   = #{gender},
+      `mobile`   = #{mobile},
+      `email`    = #{email},
+      `wechat`   = #{wechat},
+      `qq`       = #{qq},
+      `note`     = #{note},
+      `mtime`    = current_timestamp,
+      `muser`    = #{muser},
+      `status`   = #{status}
+    WHERE
+      `id` = #{id}
+  </update>
+
+  <select id="getPaginationCount" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM `t_customer`
+    WHERE 1=1
+    <if test="type!=null">
+      AND `type` = #{type}
+    </if>
+    <if test="gender!=null">
+      AND `gender` = #{gender}
+    </if>
+    <if test="keyword!=null">
+      AND (`mobile` = #{keyword} OR `name` = #{keyword})
+    </if>
+  </select>
+
+  <select id="getPaginationList" resultMap="BaseResultMap">
+    SELECT COUNT(*)
+    FROM `t_customer`
+    WHERE 1=1
+    <if test="type!=null">
+      AND `type` = #{type}
+    </if>
+    <if test="gender!=null">
+      AND `gender` = #{gender}
+    </if>
+    <if test="keyword!=null">
+      AND (`mobile` = #{keyword} OR `name` = #{keyword})
+    </if>
+    ORDER BY `mtime` DESC
+    LIMIT #{rowOffset},#{pageSize}
+  </select>
+
+
 </mapper>

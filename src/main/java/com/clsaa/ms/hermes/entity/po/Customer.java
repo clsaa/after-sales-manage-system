@@ -15,6 +15,9 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class Customer {
+  public static final int STATUS_DEL = 0;
+  public static final int STATUS_OK = 1;
+
   /**
    * 主键id
    */
@@ -36,7 +39,7 @@ public class Customer {
    */
   private Date birthday;
   /**
-   * 性别,1为女,2为男
+   * 性别,0为保密,1为女,2为男
    */
   private Integer gender;
   /**
@@ -79,4 +82,24 @@ public class Customer {
    * 状态,0为已删除,1为有效
    */
   private Integer status;
+
+  public Customer() {
+  }
+
+  public Customer(String id, Integer type, String name, Integer age, Date birthday, Integer gender, String mobile, String email, String wechat, String qq, String note,String cuser,String muser, Integer status) {
+    this.id = id;
+    this.type = type;
+    this.name = name;
+    this.age = age;
+    this.birthday = birthday;
+    this.gender = gender;
+    this.mobile = mobile;
+    this.email = email;
+    this.wechat = wechat;
+    this.qq = qq;
+    this.note = note;
+    this.cuser = cuser;
+    this.muser = muser;
+    this.status = status;
+  }
 }

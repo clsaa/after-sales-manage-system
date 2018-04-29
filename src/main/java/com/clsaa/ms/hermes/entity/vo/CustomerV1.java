@@ -36,7 +36,7 @@ public class CustomerV1 {
    */
   private Date birthday;
   /**
-   * 性别,1为女,2为男
+   * 性别,0为保密,1为女,2为男
    */
   private Integer gender;
   /**
