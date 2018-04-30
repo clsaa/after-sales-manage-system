@@ -71,7 +71,18 @@ export const constantRouterMap = [
       }
     ]
   },
-
+  {
+    path: '/customer',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Customer',
+        component: () => import('../views/customer/index'),
+        meta: { title: 'Customer', icon: 'form' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
