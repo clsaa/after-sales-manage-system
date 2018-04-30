@@ -66,5 +66,6 @@ public interface CustomerDao {
    * @param pageSize  页大小
    * @return {@link List<Customer>}
    */
-  List<Customer> getPaginationList(Integer type, Integer gender, String keyword, int rowOffset, int pageSize);
+  List<Customer> getPaginationList(@Param("type") Integer type, @Param("gender") Integer gender, @Param("keyword") String keyword,
+                                   @Param("rowOffset") int rowOffset,@Param("pageSize") int pageSize);
 }

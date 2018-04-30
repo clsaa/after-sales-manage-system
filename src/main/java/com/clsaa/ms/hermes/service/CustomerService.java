@@ -88,7 +88,6 @@ public class CustomerService {
       pagination.setPageList(Collections.emptyList());
       return Mono.just(pagination);
     }
-
     List<CustomerV1> customerV1List = this.customerDao
       .getPaginationList(type, gender, keyword, pagination.getRowOffset(), pagination.getPageSize())
       .stream().map(CustomerService::valueOf).collect(Collectors.toList());

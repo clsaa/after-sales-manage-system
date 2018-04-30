@@ -64,7 +64,7 @@
   <select id="getPaginationCount" resultType="java.lang.Integer">
     SELECT COUNT(*)
     FROM `t_customer`
-    WHERE 1=1
+    WHERE `status`=1
     <if test="type!=null">
       AND `type` = #{type}
     </if>
@@ -77,7 +77,7 @@
   </select>
 
   <select id="getPaginationList" resultMap="BaseResultMap">
-    SELECT COUNT(*)
+    SELECT *
     FROM `t_customer`
     WHERE `status`=1
     <if test="type!=null">
