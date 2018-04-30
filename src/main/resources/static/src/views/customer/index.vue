@@ -3,17 +3,17 @@
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
         <template slot-scope="scope">
-          {{scope.$index}}
+          {{scope.$index+1}}
         </template>
       </el-table-column>
       <el-table-column label="Title">
         <template slot-scope="scope">
-          {{scope.row.title}}
+          {{scope.name}}
         </template>
       </el-table-column>
       <el-table-column label="Author" width="110" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.author}}</span>
+          <span>{{scope.row.gender}}</span>
         </template>
       </el-table-column>
       <el-table-column label="Pageviews" width="110" align="center">
@@ -63,7 +63,8 @@ export default {
     fetchData() {
       this.listLoading = true
       getPagination().then(response => {
-        this.list = response.data.items
+        this.list = response.data.pageList
+        console.log(this.list)
         this.listLoading = false
       })
     }

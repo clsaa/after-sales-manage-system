@@ -23,6 +23,7 @@ import java.sql.Date;
  * @summary 顾客相关接口
  * @since 2018/4/29
  */
+@CrossOrigin
 @RestController
 public class CustomerController {
 
