@@ -58,7 +58,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
   {
     path: '/form',
     component: Layout,
@@ -72,14 +71,29 @@ export const constantRouterMap = [
     ]
   },
   {
+    name: '客户管理',
     path: '/customer',
     component: Layout,
+    meta: { title: '客户管理', icon: 'example' },
     children: [
       {
         path: 'index',
         name: 'Customer',
         component: () => import('../views/customer/index'),
-        meta: { title: 'Customer', icon: 'form' }
+        meta: { title: '客户列表', icon: 'form' }
+      },
+      {
+        path: 'add',
+        name: 'CustomerAdd',
+        component: () => import('../views/customer/add'),
+        meta: { title: '添加客户', icon: 'form' }
+      },
+      {
+        path: ':id',
+        name: 'CustomerDetail',
+        component: () => import('../views/customer/update'),
+        hidden: true,
+        meta: { title: '查看客户', icon: 'form' }
       }
     ]
   },

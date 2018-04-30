@@ -2,6 +2,7 @@ package com.clsaa.ms.hermes.service;
 
 import com.clsaa.ms.hermes.config.BizCodes;
 import com.clsaa.ms.hermes.dao.CustomerDao;
+import com.clsaa.ms.hermes.entity.dto.CustomerDto;
 import com.clsaa.ms.hermes.entity.po.Customer;
 import com.clsaa.ms.hermes.entity.vo.CustomerV1;
 import com.clsaa.ms.hermes.result.BizAssert;
@@ -56,7 +57,12 @@ public class CustomerService {
                           String mobile, String email, String wechat, String qq, String note) {
     Customer customer = new Customer(UUIDUtil.getUUID(), type, name, age, new Date(birthday), gender, mobile, email,
       wechat, qq, note, loginUserId, loginUserId, Customer.STATUS_OK);
-    int count = this.customerDao.add(customer);
+    int count = 0;
+    try {
+       count = this.customerDao.add(customer);
+    }catch (Exception e){
+      BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
+    }
     BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
     return Mono.just(customer.getId());
   }

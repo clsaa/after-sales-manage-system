@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @SpringBootApplication
 @MapperScan("com.clsaa.ms.hermes.dao")
-@EnableAsync
 @EnableConfigurationProperties
 public class AfterSalesManageSystem {
   public static void main(String[] args) {

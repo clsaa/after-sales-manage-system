@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
+    <el-form ref="form" :model="form" label-width="120px" v-bind:disabled="formDisabled">
       <el-form-item label="姓名">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
@@ -51,10 +51,6 @@
 </template>
 
 <script>
-  import {
-    add
-  } from '../../api/customer'
-
   export default {
     data() {
       return {
@@ -62,36 +58,32 @@
           name: '',
           type: '1',
           age: 0,
-          birthday: new Date('1970-01-01'),
+          birthday: new Date(),
           gender: '0',
           mobile: '',
           email: '',
           wechat: '',
           qq: '',
           note: ''
+        },
+        formDisabled: true
+      }
+    },
+    created() {
+      if (this.$route.query.hasOwnProperty('action')) {
+        if (this.$route.query['action'].toUpperCase().localeCompare('UPDATE') === 0) {
+          console.log(this.$route.query['action'].toUpperCase().localeCompare('UPDATE') === 0)
+          this.formDisabled = false
+        } else {
+          this.formDisabled = true
         }
+      } else {
+        this.formDisabled = true
       }
     },
     methods: {
       onSubmit() {
         console.log(JSON.stringify(this.form))
-        add(this.form.name, this.form.type, this.form.age, this.form.birthday.getTime(), this.form.gender,
-          this.form.mobile, this.form.email, this.form.wechat, this.form.qq, this.form.note)
-          .then(response => {
-            this.$message({
-              type: 'success',
-              message: '添加成功!'
-            })
-            this.$router.push({
-              path: '/customer/index'
-            })
-          }).error(e => {
-            console.log(JSON.stringify(e))
-            this.$message({
-              type: 'error',
-              message: e.message
-            })
-          })
       },
       onCancel() {
         this.$confirm('填写的数据将被删除, 是否继续?', '提示', {
@@ -99,9 +91,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$router.push({
-            path: '/customer/index'
-          })
+          this.$router.push({ path: '/customer/index' })
         }).catch(() => {
           this.$message({
             type: 'info',

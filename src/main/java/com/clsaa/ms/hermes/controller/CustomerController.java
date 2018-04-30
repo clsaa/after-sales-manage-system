@@ -3,6 +3,7 @@ package com.clsaa.ms.hermes.controller;
 import com.clsaa.ms.hermes.config.BizCodes;
 import com.clsaa.ms.hermes.constant.CustomerTypeEnum;
 import com.clsaa.ms.hermes.constant.GenderEnum;
+import com.clsaa.ms.hermes.entity.dto.CustomerDto;
 import com.clsaa.ms.hermes.entity.vo.CustomerV1;
 import com.clsaa.ms.hermes.result.BizAssert;
 import com.clsaa.ms.hermes.result.Pagination;
@@ -98,16 +99,7 @@ public class CustomerController {
    * 添加顾客信息,若添加成功返回插入顾客的id
    *
    * @param loginUserId 登录用户id
-   * @param type        分类,1为普通,2为VIP,3为SVIP
-   * @param name        姓名
-   * @param age         年龄
-   * @param birthday    生日(时间戳,如1524931200000)
-   * @param gender      性别,1为女,2为男
-   * @param mobile      手机号
-   * @param email       邮箱
-   * @param wechat      微信号
-   * @param qq          QQ号
-   * @param note        备注
+   * @param customerDto {@link CustomerDto}
    * @return 已添加的顾客id
    * @summary 添加顾客信息
    * @version v1
@@ -116,16 +108,18 @@ public class CustomerController {
    */
   @PostMapping("/v1/customer")
   public Mono<String> addV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
-                            @RequestParam(value = "type", required = false, defaultValue = "1") Integer type,
-                            @RequestParam(value = "name") String name,
-                            @RequestParam(value = "age", required = false, defaultValue = "0") Integer age,
-                            @RequestParam(value = "birthday", required = false, defaultValue = "0") Long birthday,
-                            @RequestParam(value = "gender", required = false, defaultValue = "0") Integer gender,
-                            @RequestParam(value = "mobile") String mobile,
-                            @RequestParam(value = "email", required = false, defaultValue = "") String email,
-                            @RequestParam(value = "wechat", required = false, defaultValue = "") String wechat,
-                            @RequestParam(value = "qq", required = false, defaultValue = "") String qq,
-                            @RequestParam(value = "note", required = false, defaultValue = "") String note) {
+                             CustomerDto customerDto) {
+    BizAssert.validParam(false,BizCodes.INVALID_PARAM);
+    Integer type = customerDto.getType();
+    String name = customerDto.getName();
+    Integer age = customerDto.getAge();
+    Long birthday = customerDto.getBirthday();
+    Integer gender = customerDto.getGender();
+    String mobile = customerDto.getMobile();
+    String email = customerDto.getEmail();
+    String wechat = customerDto.getWechat();
+    String qq = customerDto.getQq();
+    String note = customerDto.getNote();
     this.doValidation(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
     return this.customerService.add(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
   }
@@ -165,16 +159,7 @@ public class CustomerController {
    *
    * @param loginUserId 登录用户id
    * @param id          顾客id
-   * @param type        分类,1为普通,2为VIP,3为SVIP
-   * @param name        姓名
-   * @param age         年龄
-   * @param birthday    生日(时间戳,如1524931200000)
-   * @param gender      性别,1为女,2为男
-   * @param mobile      手机号
-   * @param email       邮箱
-   * @param wechat      微信号
-   * @param qq          QQ号
-   * @param note        备注
+   * @param customerDto {@link CustomerDto}
    * @return {@link Mono<Void>}
    * @summary 修改顾客信息
    * @version v1
@@ -184,16 +169,17 @@ public class CustomerController {
   @PutMapping("/v1/customer/{id}")
   public Mono<Void> updateV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
                              @PathVariable(value = "id") String id,
-                             @RequestParam(value = "type", required = false, defaultValue = "1") Integer type,
-                             @RequestParam(value = "name") String name,
-                             @RequestParam(value = "age", required = false, defaultValue = "0") Integer age,
-                             @RequestParam(value = "birthday", required = false, defaultValue = "0") Long birthday,
-                             @RequestParam(value = "gender", required = false, defaultValue = "0") Integer gender,
-                             @RequestParam(value = "mobile") String mobile,
-                             @RequestParam(value = "email", required = false, defaultValue = "") String email,
-                             @RequestParam(value = "wechat", required = false, defaultValue = "") String wechat,
-                             @RequestParam(value = "qq", required = false, defaultValue = "") String qq,
-                             @RequestParam(value = "note", required = false, defaultValue = "") String note) {
+                             @RequestBody CustomerDto customerDto) {
+    Integer type = customerDto.getType();
+    String name = customerDto.getName();
+    Integer age = customerDto.getAge();
+    Long birthday = customerDto.getBirthday();
+    Integer gender = customerDto.getGender();
+    String mobile = customerDto.getMobile();
+    String email = customerDto.getEmail();
+    String wechat = customerDto.getWechat();
+    String qq = customerDto.getQq();
+    String note = customerDto.getNote();
     this.doValidation(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
     return this.customerService.update(id, loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
   }

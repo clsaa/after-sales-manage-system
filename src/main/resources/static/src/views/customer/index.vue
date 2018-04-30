@@ -23,8 +23,14 @@
       <el-form-item>
         <el-button type="primary" @click="fetchData">查询</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary">
+          <router-link :to="'/customer/add'">新增</router-link>
+        </el-button>
+      </el-form-item>
     </el-form>
-    <el-table ref="multipleTable" :data="pagination.pageList" v-loading.body="listLoading" element-loading-text="Loading" fit
+    <el-table ref="multipleTable" :data="pagination.pageList" v-loading.body="listLoading"
+              element-loading-text="Loading" fit
               highlight-current-row>
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="expand">
@@ -94,8 +100,8 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="130">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button type="text" size="small"><router-link :to="{path:'/customer/'+scope.row.id,query:{action: 'get'}}">查看</router-link></el-button>
+          <el-button type="text" size="small"><router-link :to="{path:'/customer/'+scope.row.id,query:{action: 'update'}}">编辑</router-link></el-button>
           <el-button @click="del(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
@@ -185,7 +191,6 @@
         })
       },
       handleSizeChange(val) {
-        console.log(val)
         this.pagination.pageSize = val
         this.fetchData()
       },

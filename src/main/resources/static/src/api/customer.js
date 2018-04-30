@@ -22,3 +22,13 @@ export function del(id) {
     method: 'delete'
   })
 }
+
+export function add(name, type, age, birthday, gender, mobile, email, wechat, qq, note) {
+  return request({
+    url: '/v1/customer',
+    method: 'post',
+    data: {
+      name, type, age, birthday, gender, mobile, email, wechat, qq, note
+    }
+  })
+}
