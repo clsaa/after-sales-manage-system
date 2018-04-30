@@ -29,6 +29,22 @@ export function del(id) {
     method: 'delete'
   })
 }
+export function delBatch(ids) {
+  let idsStr = ''
+  ids.forEach(id => {
+    idsStr += id + ','
+  })
+  console.log(idsStr)
+  console.log(idsStr.length)
+  idsStr = idsStr.substr(0, idsStr.length - 1)
+  return request({
+    url: '/v1/customer/batch',
+    method: 'delete',
+    params: {
+      'ids': idsStr
+    }
+  })
+}
 
 export function add(name, type, age, birthday, gender, mobile, email, wechat, qq, note) {
   return request({

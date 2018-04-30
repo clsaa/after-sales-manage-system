@@ -24,61 +24,28 @@ import Layout from '../views/layout/Layout'
 export const constantRouterMap = [
   { path: '/login', component: () => import('../views/login/index'), hidden: true },
   { path: '/404', component: () => import('../views/404'), hidden: true },
-
+  { path: '/', redirect: '/dashboard/index' },
   {
-    path: '/',
+    path: '/dashboard',
+    redirect: '/dashboard/index',
     component: Layout,
-    redirect: '/dashboard',
     name: 'Dashboard',
-    hidden: true,
+    hidden: false,
     children: [{
-      path: 'dashboard',
-      component: () => import('../views/dashboard/index')
+      path: 'index',
+      component: () => import('../views/dashboard/index'),
+      meta: { title: '仪表盘', icon: 'form' }
     }]
   },
-
   {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('../views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('../views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('../views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-  {
-    name: '客户管理',
+    name: 'Customer',
     path: '/customer',
     component: Layout,
     meta: { title: '客户管理', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Customer',
+        name: 'CustomerList',
         component: () => import('../views/customer/index'),
         meta: { title: '客户列表', icon: 'form' }
       },
@@ -93,7 +60,88 @@ export const constantRouterMap = [
         name: 'CustomerDetail',
         component: () => import('../views/customer/update'),
         hidden: true,
-        meta: { title: '查看客户', icon: 'form' }
+        meta: { title: '查看|编辑客户', icon: 'form' }
+      }
+    ]
+  },
+  {
+    name: 'WorkOrder',
+    path: '/order',
+    component: Layout,
+    meta: { title: '工单管理', icon: 'example' },
+    children: [
+      {
+        path: 'index',
+        name: 'WorkOrderList',
+        component: () => import('../views/customer/index'),
+        meta: { title: '工单列表', icon: 'form' }
+      },
+      {
+        path: 'add',
+        name: 'WorkOrderAdd',
+        component: () => import('../views/customer/add'),
+        meta: { title: '添加工单', icon: 'form' }
+      },
+      {
+        path: ':id',
+        name: 'WorkOrderDetail',
+        component: () => import('../views/customer/update'),
+        hidden: true,
+        meta: { title: '查看|编辑工单', icon: 'form' }
+      }
+    ]
+  },
+  {
+    name: 'Plan',
+    path: '/plan',
+    component: Layout,
+    meta: { title: '计划管理', icon: 'example' },
+    children: [
+      {
+        path: 'index',
+        name: 'PlanList',
+        component: () => import('../views/customer/index'),
+        meta: { title: '计划列表', icon: 'form' }
+      },
+      {
+        path: 'add',
+        name: 'PlanAdd',
+        component: () => import('../views/customer/add'),
+        meta: { title: '添加计划', icon: 'form' }
+      },
+      {
+        path: ':id',
+        name: 'PlanDetail',
+        component: () => import('../views/customer/update'),
+        hidden: true,
+        meta: { title: '查看|编辑计划', icon: 'form' }
+      }
+    ]
+  },
+  {
+    name: 'Repository',
+    path: '/repository',
+    component: Layout,
+    meta: { title: '知识库管理', icon: 'example' },
+    children: [
+      {
+        path: 'index',
+        name: 'RepositoryList',
+        component: () => import('../views/customer/index'),
+        meta: { title: '知识库列表', icon: 'form' }
+      },
+      {
+        path: 'add',
+        name: 'PlanAdd',
+        component: () => import('../views/customer/add'),
+        meta: { title: '添加知识数据', icon: 'form' }
+      },
+      {
+        path: ':id',
+        name: 'PlanDetail',
+        component: () => import('../views/customer/update'),
+        hidden: true,
+        meta: { title: '查看|编辑知识数据', icon: 'form' }
       }
     ]
   },

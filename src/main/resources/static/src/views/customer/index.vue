@@ -31,7 +31,8 @@
     </el-form>
     <el-table ref="multipleTable" :data="pagination.pageList" v-loading.body="listLoading"
               element-loading-text="Loading" fit
-              highlight-current-row>
+              highlight-current-row
+              @selection-change="changed">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="expand">
         <template slot-scope="scope">
@@ -118,8 +119,7 @@
       </el-pagination>
     </div>
     <div style="margin-top: 20px">
-      <el-button @click="toggleSelection([list[1], list[2]])">切换第二、第三行的选中状态</el-button>
-      <el-button @click="toggleSelection()">取消选择</el-button>
+      <el-button @click="delBatch" type="danger">删除选中</el-button>
     </div>
   </div>
 </template>
@@ -142,14 +142,14 @@
 </style>
 
 <script>
-  import { getPagination, del } from '../../api/customer'
+  import { getPagination, del, delBatch } from '../../api/customer'
 
   export default {
     data() {
       return {
         list: null,
         listLoading: true,
-        multipleSelection: [],
+        selectedList: [],
         searchCondition: {
           keyword: null,
           type: null,
@@ -188,6 +188,12 @@
         getPagination(this.searchCondition.type, this.searchCondition.gender, this.searchCondition.keyword, this.pagination.pageNo, this.pagination.pageSize).then(response => {
           this.pagination = response.data
           this.listLoading = false
+        }).catch((err) => {
+          this.listLoading = false
+          this.$message({
+            type: 'error',
+            message: err.response.data.message
+          })
         })
       },
       handleSizeChange(val) {
@@ -212,24 +218,40 @@
             })
             this.fetchData()
           })
-        }).catch(() => {
+        }).catch((err) => {
           this.$message({
-            type: 'info',
-            message: '已取消删除'
+            type: 'error',
+            message: err.response.data.message
           })
         })
       },
-      toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTableXX.toggleRowSelection(row)
+      delBatch() {
+        this.$confirm('此操作将永久删除这些顾客, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.listLoading = true
+          delBatch(this.selectedList.map(c => {
+            return c.id
+          })).then(response => {
+            this.listLoading = false
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.fetchData()
           })
-        } else {
-          this.$refs.multipleTableXX.clearSelection()
-        }
+        }).catch((err) => {
+          this.listLoading = false
+          this.$message({
+            type: 'error',
+            message: err.response.data.message
+          })
+        })
       },
-      handleSelectionChange(val) {
-        this.multipleSelection = val
+      changed(selection) {
+        this.selectedList = selection
       }
     }
   }
