@@ -6,16 +6,16 @@
       </el-form-item>
       <el-form-item label="性别">
         <el-select v-model="form.gender">
-          <el-option label="保密" value="0"></el-option>
-          <el-option label="女" value="1"></el-option>
-          <el-option label="男" value="2"></el-option>
+          <el-option label="保密" value=0></el-option>
+          <el-option label="女" value=1></el-option>
+          <el-option label="男" value=2></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="级别">
         <el-select v-model="form.type">
-          <el-option label="普通" value="1"></el-option>
-          <el-option label="VIP" value="2"></el-option>
-          <el-option label="SVIP" value="3"></el-option>
+          <el-option label="普通" value=1></el-option>
+          <el-option label="VIP" value=2></el-option>
+          <el-option label="SVIP" value=3></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="年龄">
@@ -51,15 +51,21 @@
 </template>
 
 <script>
+  import {
+    update,
+    getById
+  } from '../../api/customer'
+
   export default {
     data() {
       return {
         form: {
+          id: '',
           name: '',
-          type: '1',
+          type: 1,
           age: 0,
-          birthday: new Date(),
-          gender: '0',
+          birthday: new Date('1970-01-01'),
+          gender: 0,
           mobile: '',
           email: '',
           wechat: '',
@@ -70,28 +76,76 @@
       }
     },
     created() {
+      if (this.$route.params.hasOwnProperty('id')) {
+        this.form.id = this.$route.params['id']
+      } else {
+        this.$message({
+          type: 'info',
+          message: '无此用户信息'
+        })
+        this.$router.push({
+          path: '/customer/index'
+        })
+      }
+      this.init()
       if (this.$route.query.hasOwnProperty('action')) {
-        if (this.$route.query['action'].toUpperCase().localeCompare('UPDATE') === 0) {
-          console.log(this.$route.query['action'].toUpperCase().localeCompare('UPDATE') === 0)
-          this.formDisabled = false
-        } else {
-          this.formDisabled = true
-        }
+        this.formDisabled = this.$route.query['action'].toUpperCase().localeCompare('UPDATE') !== 0
       } else {
         this.formDisabled = true
       }
     },
     methods: {
+      init() {
+        getById(this.form.id).then(response => {
+          if (response.data === '') {
+            this.$router.push({
+              path: '/customer/index'
+            })
+            this.$message({
+              type: 'error',
+              message: '顾客不存在'
+            })
+          } else {
+            this.form = response.data
+            console.log(JSON.stringify(this.form))
+            this.form.birthday = new Date(response.data.birthday)
+            this.form.gender = this.form.gender + ''
+            this.form.type = this.form.type + ''
+          }
+        }).catch((err) => {
+          this.$message({
+            type: 'error',
+            message: err.response.data.message
+          })
+        })
+      },
       onSubmit() {
-        console.log(JSON.stringify(this.form))
+        update(this.form.id, this.form.name, this.form.type, this.form.age, this.form.birthday.getTime(), this.form.gender,
+          this.form.mobile, this.form.email, this.form.wechat, this.form.qq, this.form.note)
+          .then(response => {
+            this.$message({
+              type: 'success',
+              message: '修改成功!'
+            })
+            this.$router.push({
+              path: '/customer/index'
+            })
+          }).catch((err) => {
+            this.$message({
+              type: 'error',
+              message: err.response.data.message
+            })
+          })
       },
       onCancel() {
-        this.$confirm('填写的数据将被删除, 是否继续?', '提示', {
+        this.$confirm('修改的数据将被还原, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$router.push({ path: '/customer/index' })
+          this.$router.push({
+            path: '/customer/index'
+          })
         }).catch(() => {
           this.$message({
             type: 'info',

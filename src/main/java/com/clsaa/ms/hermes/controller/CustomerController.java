@@ -108,8 +108,7 @@ public class CustomerController {
    */
   @PostMapping("/v1/customer")
   public Mono<String> addV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
-                             CustomerDto customerDto) {
-    BizAssert.validParam(false,BizCodes.INVALID_PARAM);
+                            @RequestBody CustomerDto customerDto) {
     Integer type = customerDto.getType();
     String name = customerDto.getName();
     Integer age = customerDto.getAge();

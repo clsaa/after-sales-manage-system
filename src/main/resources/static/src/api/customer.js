@@ -16,6 +16,13 @@ export function getPagination(type, gender, keyword, pageNo, pageSize) {
   })
 }
 
+export function getById(id) {
+  return request({
+    url: '/v1/customer/' + id,
+    method: 'get'
+  })
+}
+
 export function del(id) {
   return request({
     url: '/v1/customer/' + id,
@@ -27,6 +34,16 @@ export function add(name, type, age, birthday, gender, mobile, email, wechat, qq
   return request({
     url: '/v1/customer',
     method: 'post',
+    data: {
+      name, type, age, birthday, gender, mobile, email, wechat, qq, note
+    }
+  })
+}
+
+export function update(id, name, type, age, birthday, gender, mobile, email, wechat, qq, note) {
+  return request({
+    url: '/v1/customer/' + id,
+    method: 'put',
     data: {
       name, type, age, birthday, gender, mobile, email, wechat, qq, note
     }

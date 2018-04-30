@@ -85,11 +85,10 @@
             this.$router.push({
               path: '/customer/index'
             })
-          }).error(e => {
-            console.log(JSON.stringify(e))
+          }).catch((err) => {
             this.$message({
               type: 'error',
-              message: e.message
+              message: err.response.data.message
             })
           })
       },
