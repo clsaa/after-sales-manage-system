@@ -14,6 +14,10 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class Plan {
+  public static final int STATUS_DEL = 0;
+  public static final int STATUS_NO_FINISHED = 1;
+  public static final int STATUS_ALREADY_FINISHED = 2;
+  public static final int STATUS_ALREADY_OLD = 3;
   /**
    * 主键id
    */
@@ -66,5 +70,21 @@ public class Plan {
    * 状态,0为已删除,1为待完成,2为已完成
    */
   private Integer status;
+
+  public Plan() {
+  }
+
+  public Plan(String id, Integer type, Boolean important, Boolean urgent, String note, Timestamp beginTime, Timestamp endTime, String cuser, String muser, Integer status) {
+    this.id = id;
+    this.type = type;
+    this.important = important;
+    this.urgent = urgent;
+    this.note = note;
+    this.beginTime = beginTime;
+    this.endTime = endTime;
+    this.cuser = cuser;
+    this.muser = muser;
+    this.status = status;
+  }
 }
 

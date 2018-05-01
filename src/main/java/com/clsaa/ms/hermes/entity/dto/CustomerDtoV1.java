@@ -8,17 +8,12 @@ import java.sql.Timestamp;
 /**
  * @author RenGuiJie
  * @version v1
- * @summary 顾客数据传输层对象
+ * @summary 顾客传输层对象
  * @since 2018/4/25
  */
 @Getter
 @Setter
-public class CustomerDto {
-
-  /**
-   * 主键id
-   */
-  private String id = "";
+public class CustomerDtoV1 {
   /**
    * 分类,1为普通,2为VIP,3为SVIP
    */
@@ -59,25 +54,4 @@ public class CustomerDto {
    * 备注
    */
   private String note = "";
-  /**
-   * 创建时间
-   */
-  private Timestamp ctime = new Timestamp(System.currentTimeMillis());
-  /**
-   * 创建人
-   */
-  private String cuser = "";
-  /**
-   * 修改时间
-   */
-  private Timestamp mtime = new Timestamp(System.currentTimeMillis());
-  /**
-   * 修改人
-   */
-  private String muser = "";
-  /**
-   * 状态,0为已删除,1为有效
-   */
-  private Integer status = 1;
-
 }

@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
  */
 public class MobileValidator {
 
+  private MobileValidator() {
+    throw new UnsupportedOperationException();
+  }
+
   /**
    * 精确的中国大陆手机号校验正则表达式
    *

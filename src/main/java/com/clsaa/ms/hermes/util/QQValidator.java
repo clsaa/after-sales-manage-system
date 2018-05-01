@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
  */
 public class QQValidator {
 
+  private QQValidator() {
+    throw new UnsupportedOperationException();
+  }
+
   private static final Pattern QQ_PATTERN = Pattern.compile("[1-9][0-9]{4,14}");
 
   public static boolean isQQ(String qq) {

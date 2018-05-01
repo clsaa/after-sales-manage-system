@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator {
 
+  private EmailValidator() {
+    throw new UnsupportedOperationException();
+  }
 
   private static final Pattern EMAIL_PATTERN = Pattern.compile("^([a-z0-9A-Z]+[-|.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 

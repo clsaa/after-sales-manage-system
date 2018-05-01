@@ -3,7 +3,7 @@ package com.clsaa.ms.hermes.controller;
 import com.clsaa.ms.hermes.config.BizCodes;
 import com.clsaa.ms.hermes.constant.CustomerTypeEnum;
 import com.clsaa.ms.hermes.constant.GenderEnum;
-import com.clsaa.ms.hermes.entity.dto.CustomerDto;
+import com.clsaa.ms.hermes.entity.dto.CustomerDtoV1;
 import com.clsaa.ms.hermes.entity.vo.CustomerV1;
 import com.clsaa.ms.hermes.result.BizAssert;
 import com.clsaa.ms.hermes.result.Pagination;
@@ -99,7 +99,7 @@ public class CustomerController {
    * 添加顾客信息,若添加成功返回插入顾客的id
    *
    * @param loginUserId 登录用户id
-   * @param customerDto {@link CustomerDto}
+   * @param customerDtoV1 {@link CustomerDtoV1}
    * @return 已添加的顾客id
    * @summary 添加顾客信息
    * @version v1
@@ -108,17 +108,17 @@ public class CustomerController {
    */
   @PostMapping("/v1/customer")
   public Mono<String> addV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
-                            @RequestBody CustomerDto customerDto) {
-    Integer type = customerDto.getType();
-    String name = customerDto.getName();
-    Integer age = customerDto.getAge();
-    Long birthday = customerDto.getBirthday();
-    Integer gender = customerDto.getGender();
-    String mobile = customerDto.getMobile();
-    String email = customerDto.getEmail();
-    String wechat = customerDto.getWechat();
-    String qq = customerDto.getQq();
-    String note = customerDto.getNote();
+                            @RequestBody CustomerDtoV1 customerDtoV1) {
+    Integer type = customerDtoV1.getType();
+    String name = customerDtoV1.getName();
+    Integer age = customerDtoV1.getAge();
+    Long birthday = customerDtoV1.getBirthday();
+    Integer gender = customerDtoV1.getGender();
+    String mobile = customerDtoV1.getMobile();
+    String email = customerDtoV1.getEmail();
+    String wechat = customerDtoV1.getWechat();
+    String qq = customerDtoV1.getQq();
+    String note = customerDtoV1.getNote();
     this.doValidation(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
     return this.customerService.add(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
   }
@@ -158,7 +158,7 @@ public class CustomerController {
    *
    * @param loginUserId 登录用户id
    * @param id          顾客id
-   * @param customerDto {@link CustomerDto}
+   * @param customerDtoV1 {@link CustomerDtoV1}
    * @return {@link Mono<Void>}
    * @summary 修改顾客信息
    * @version v1
@@ -168,17 +168,17 @@ public class CustomerController {
   @PutMapping("/v1/customer/{id}")
   public Mono<Void> updateV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
                              @PathVariable(value = "id") String id,
-                             @RequestBody CustomerDto customerDto) {
-    Integer type = customerDto.getType();
-    String name = customerDto.getName();
-    Integer age = customerDto.getAge();
-    Long birthday = customerDto.getBirthday();
-    Integer gender = customerDto.getGender();
-    String mobile = customerDto.getMobile();
-    String email = customerDto.getEmail();
-    String wechat = customerDto.getWechat();
-    String qq = customerDto.getQq();
-    String note = customerDto.getNote();
+                             @RequestBody CustomerDtoV1 customerDtoV1) {
+    Integer type = customerDtoV1.getType();
+    String name = customerDtoV1.getName();
+    Integer age = customerDtoV1.getAge();
+    Long birthday = customerDtoV1.getBirthday();
+    Integer gender = customerDtoV1.getGender();
+    String mobile = customerDtoV1.getMobile();
+    String email = customerDtoV1.getEmail();
+    String wechat = customerDtoV1.getWechat();
+    String qq = customerDtoV1.getQq();
+    String note = customerDtoV1.getNote();
     this.doValidation(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
     return this.customerService.update(id, loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
   }

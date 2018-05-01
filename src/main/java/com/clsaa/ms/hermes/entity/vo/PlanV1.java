@@ -63,7 +63,7 @@ public class PlanV1 {
    */
   private String muser;
   /**
-   * 状态,0为已删除,1为待完成,2为已完成
+   * 状态,0为已删除,1为待完成,2为已完成,4为已过期
    */
   private Integer status;
 }
