@@ -47,22 +47,6 @@ public class PlanV1 {
    */
   private Timestamp finishTime;
   /**
-   * 创建时间
-   */
-  private Timestamp ctime;
-  /**
-   * 创建人
-   */
-  private String cuser;
-  /**
-   * 修改时间
-   */
-  private Timestamp mtime;
-  /**
-   * 修改人
-   */
-  private String muser;
-  /**
    * 状态,0为已删除,1为待完成,2为已完成,4为已过期
    */
   private Integer status;

@@ -14,6 +14,13 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class WorkOrder {
+  public static final int STATUS_PENDING = 1;
+  public static final int STATUS_PROCESSING = 2;
+  public static final int STATUS_WAIT_SUPPLEMENTAL = 3;
+  public static final int STATUS_WAIT_CONFIRMED = 4;
+  public static final int STATUS_WAIT_EVALUATED = 5;
+  public static final int STATUS_CANCELED = 6;
+  public static final int STATUS_FINISHED = 7;
   /**
    * 主键id
    */
@@ -86,4 +93,19 @@ public class WorkOrder {
    * 状态,1为未处理,2为处理中,3为待补充,4为待确认结单,5为待评价,6为已撤销,7为已结单
    */
   private Integer status;
+
+  public WorkOrder() {
+  }
+
+  public WorkOrder(String id, String customerId, String code, String title, Integer type, String description, String cuser, String muser, Integer status) {
+    this.id = id;
+    this.customerId = customerId;
+    this.code = code;
+    this.title = title;
+    this.type = type;
+    this.description = description;
+    this.cuser = cuser;
+    this.muser = muser;
+    this.status = status;
+  }
 }

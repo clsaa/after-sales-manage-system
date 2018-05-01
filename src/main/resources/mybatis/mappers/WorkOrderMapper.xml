@@ -11,11 +11,11 @@
     <id column="title" property="title"/>
     <id column="type" property="type"/>
     <id column="description" property="description"/>
-    <id column="receiveMsgType" property="receiveMsgType"/>
-    <id column="callbackType" property="callbackType"/>
-    <id column="callbackBeginTime" property="callbackBeginTime"/>
-    <id column="callbackEndTime" property="callbackEndTime"/>
-    <id column="finishTime" property="finishTime"/>
+    <id column="receive_msg_type" property="receiveMsgType"/>
+    <id column="callback_type" property="callbackType"/>
+    <id column="callback_begin_time" property="callbackBeginTime"/>
+    <id column="callback_end_time" property="callbackEndTime"/>
+    <id column="finish_time" property="finishTime"/>
     <id column="ctime" property="ctime"/>
     <id column="cuser" property="cuser"/>
     <id column="mtime" property="mtime"/>
@@ -23,4 +23,70 @@
     <id column="status" property="status"/>
   </resultMap>
 
+  <select id="getById" resultMap="BaseResultMap">
+    SELECT *
+    FROM `t_work_order`
+    WHERE `id` = #{id}
+  </select>
+
+
+  <insert id="add">
+    INSERT INTO `t_work_order` (`id`, `customer_id`, `code`, `title`, `type`, `description`,
+                                `ctime`, `cuser`, `mtime`, `muser`, `status`)
+    VALUES (#{id}, #{customer_id}, #{code}, #{title}, #{type}, #{description},
+      current_timestamp, #{cuser}, current_timestamp, #{muser}, #{status});
+  </insert>
+
+  <update id="update">
+    UPDATE `t_work_order`
+    SET
+      `customer_id` = #{customerId},
+      `code`        = #{code},
+      `title`       = #{title},
+      `type`        = #{type},
+      `description` = #{description},
+      `mtime`       = current_timestamp,
+      `muser`       = #{muser},
+      `status`      = #{status}
+    WHERE `id` = #{id}
+  </update>
+
+
+  <select id="getPaginationCount" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM `t_work_order`
+    WHERE (`duty_staff_id` = '' OR `duty_staff_id` = #{loginUserId})
+    <if test="type!=null">
+      AND `type` = #{type}
+    </if>
+    <if test="status!=null">
+      AND `status` = #{status}
+    </if>
+    <if test="beginTime!=null">
+      AND `ctime` <![CDATA[ >= ]]> #{beginTime}
+    </if>
+    <if test="endTime!=null">
+      AND `ctime` <![CDATA[ <= ]]> #{endTime}
+    </if>
+  </select>
+
+  <select id="getPaginationList" resultMap="BaseResultMap">
+    SELECT *
+    FROM `t_work_order`
+    WHERE (`duty_staff_id` = '' OR `duty_staff_id` = #{loginUserId})
+    <if test="type!=null">
+      AND `type` = #{type}
+    </if>
+    <if test="status!=null">
+      AND `status` = #{status}
+    </if>
+    <if test="beginTime!=null">
+      AND `ctime` <![CDATA[ >= ]]> #{beginTime}
+    </if>
+    <if test="endTime!=null">
+      AND `ctime` <![CDATA[ <= ]]> #{endTime}
+    </if>
+    ORDER BY `ctime` DESC
+    LIMIT #{rowOffset},#{pageSize}
+  </select>
 </mapper>

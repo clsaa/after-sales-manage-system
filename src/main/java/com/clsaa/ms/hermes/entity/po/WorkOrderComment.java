@@ -14,6 +14,8 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class WorkOrderComment {
+  public static final int STATUS_DEL = 0;
+  public static final int STATUS_OK = 1;
   /**
    * 主键id
    */
@@ -35,6 +37,10 @@ public class WorkOrderComment {
    */
   private String content;
   /**
+   * 创建时间
+   */
+  private Timestamp ctime;
+  /**
    * 创建人
    */
   private String cuser;
@@ -50,4 +56,18 @@ public class WorkOrderComment {
    * 状态,0为已删除,1为有效
    */
   private Integer status;
+
+  public WorkOrderComment() {
+  }
+
+  public WorkOrderComment(String id, String workOrderId, String customerId, String staffId, String content, String cuser, String muser, Integer status) {
+    this.id = id;
+    this.workOrderId = workOrderId;
+    this.customerId = customerId;
+    this.staffId = staffId;
+    this.content = content;
+    this.cuser = cuser;
+    this.muser = muser;
+    this.status = status;
+  }
 }

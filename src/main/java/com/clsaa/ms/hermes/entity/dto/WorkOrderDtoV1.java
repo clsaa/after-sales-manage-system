@@ -1,36 +1,27 @@
-package com.clsaa.ms.hermes.entity.vo;
+package com.clsaa.ms.hermes.entity.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * @author RenGuiJie
  * @version v1
- * @summary 工单视图层对象
+ * @summary 工单传输层对象
  * @since 2018/4/29
  */
 @Getter
 @Setter
-public class WorkOrderV1 {
+public class WorkOrderDtoV1 {
   /**
-   * 主键id
+   * 客户姓名
    */
-  private String id;
+  private String name;
   /**
-   * 客户id,t_customer.id
+   * 客户手机号
    */
-  private String customerId;
-  /**
-   * 责任人,某客服或主管id
-   */
-  private String dutyStaffId;
-  /**
-   * 编号,如20180425XXXXXX
-   */
-  private String code;
+  private String mobile;
   /**
    * 标题
    */
@@ -54,21 +45,9 @@ public class WorkOrderV1 {
   /**
    * 每天能接受回访的开始时间,如0930
    */
-  private Integer callbackTimeBegin;
+  private Integer callbackBeginTime;
   /**
    * 每天能接受回访的结束时间,如1830
    */
-  private Integer callbackTimeEnd;
-  /**
-   * 实际完成时间
-   */
-  private Timestamp finishTime;
-  /**
-   * 状态,1为未处理,2为处理中,3为待补充,4为待确认结单,5为待评价,6为已撤销,7为已结单
-   */
-  private Integer status;
-  /**
-   * 工单对话列表
-   */
-  private List<WorkOrderCommentV1> workOrderCommentV1List;
+  private Integer callbackEndTime;
 }

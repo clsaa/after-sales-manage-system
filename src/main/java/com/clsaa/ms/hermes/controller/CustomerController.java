@@ -92,13 +92,13 @@ public class CustomerController {
    */
   @GetMapping("/v1/customer/ByMobile")
   public Mono<CustomerV1> getByMobileV1(@RequestParam(value = "mobile") String mobile) {
-    return this.customerService.getCustomerV1ByMobile(mobile);
+    return Mono.justOrEmpty(this.customerService.getCustomerV1ByMobile(mobile));
   }
 
   /**
    * 添加顾客信息,若添加成功返回插入顾客的id
    *
-   * @param loginUserId 登录用户id
+   * @param loginUserId   登录用户id
    * @param customerDtoV1 {@link CustomerDtoV1}
    * @return 已添加的顾客id
    * @summary 添加顾客信息
@@ -120,7 +120,7 @@ public class CustomerController {
     String qq = customerDtoV1.getQq();
     String note = customerDtoV1.getNote();
     this.doValidation(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
-    return this.customerService.add(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note);
+    return Mono.just(this.customerService.add(loginUserId, type, name, age, birthday, gender, mobile, email, wechat, qq, note));
   }
 
   /**
@@ -156,8 +156,8 @@ public class CustomerController {
   /**
    * 修改顾客信息,若添加成功则静默
    *
-   * @param loginUserId 登录用户id
-   * @param id          顾客id
+   * @param loginUserId   登录用户id
+   * @param id            顾客id
    * @param customerDtoV1 {@link CustomerDtoV1}
    * @return {@link Mono<Void>}
    * @summary 修改顾客信息

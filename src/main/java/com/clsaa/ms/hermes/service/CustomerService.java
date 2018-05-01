@@ -47,11 +47,11 @@ public class CustomerService {
     return Mono.justOrEmpty(this.customerDao.getById(id)).map(CustomerService::valueOf);
   }
 
-  public Mono<CustomerV1> getCustomerV1ByMobile(String mobile) {
-    return Mono.justOrEmpty(this.customerDao.getByMobile(mobile)).map(CustomerService::valueOf);
+  public CustomerV1 getCustomerV1ByMobile(String mobile) {
+    return valueOf(this.customerDao.getByMobile(mobile));
   }
 
-  public Mono<String> add(String loginUserId, Integer type, String name, Integer age, Long birthday, Integer gender,
+  public String add(String loginUserId, Integer type, String name, Integer age, Long birthday, Integer gender,
                           String mobile, String email, String wechat, String qq, String note) {
     Customer customer = new Customer(UUIDUtil.getUUID(), type, name, age, new Date(birthday), gender, mobile, email,
       wechat, qq, note, loginUserId, loginUserId, Customer.STATUS_OK);
@@ -62,7 +62,7 @@ public class CustomerService {
       BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
     }
     BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
-    return Mono.just(customer.getId());
+    return customer.getId();
   }
 
 

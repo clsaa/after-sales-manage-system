@@ -35,19 +35,7 @@ public class WorkOrderCommentV1 {
    */
   private String content;
   /**
-   * 创建人
+   * 创建时间
    */
-  private String cuser;
-  /**
-   * 修改时间
-   */
-  private Timestamp mtime;
-  /**
-   * 修改人
-   */
-  private String muser;
-  /**
-   * 状态,0为已删除,1为有效
-   */
-  private Integer status;
+  private Timestamp ctime;
 }

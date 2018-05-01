@@ -5,14 +5,29 @@
   <!-- 通用查询映射结果 -->
   <resultMap id="BaseResultMap" type="com.clsaa.ms.hermes.entity.po.WorkOrderComment">
     <id column="id" property="id"/>
-    <id column="workOrderId" property="workOrderId"/>
-    <id column="customerId" property="customerId"/>
-    <id column="staffId" property="staffId"/>
+    <id column="work_order_id" property="workOrderId"/>
+    <id column="customer_id" property="customerId"/>
+    <id column="staff_id" property="staffId"/>
     <id column="content" property="content"/>
+    <id column="ctime" property="ctime"/>
     <id column="cuser" property="cuser"/>
     <id column="mtime" property="mtime"/>
     <id column="muser" property="muser"/>
     <id column="status" property="status"/>
   </resultMap>
 
+  <select id="getByWorkOrderId" resultMap="BaseResultMap">
+    SELECT *
+    FROM `t_work_order_comment`
+    WHERE `word_order_id` = #{workOrderId}
+          AND `status` = 1
+    ORDER BY `ctime` DESC
+  </select>
+
+  <insert id="add">
+    INSERT INTO `t_work_order_comment` (`id`, `word_order_id`, `customer_id`, `staff_id`, `content`,
+                                        `ctime`, `cuser`, `mtime`, `muser`, `status`)
+    VALUES (#{id}, #{word_order_id}, #{customer_id}, #{staff_id}, #{content},
+            current_timestamp, #{cuser}, current_timestamp, #{muser}, #{status});
+  </insert>
 </mapper>
