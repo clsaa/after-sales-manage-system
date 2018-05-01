@@ -94,6 +94,4 @@ public class WorkOrderController {
       monoSink.success(this.workOrderService.add(workOrderDtoV1.getName(), workOrderDtoV1.getMobile(),
         workOrderDtoV1.getType(), workOrderDtoV1.getTitle(), workOrderDtoV1.getDescription())));
   }
-
-
 }
