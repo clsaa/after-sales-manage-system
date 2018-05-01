@@ -18,6 +18,7 @@ import reactor.core.publisher.Mono;
  * @summary 计划接口
  * @since 2018/4/29
  */
+@CrossOrigin
 @RestController
 public class PlanController {
   @Autowired
@@ -112,7 +113,7 @@ public class PlanController {
                                           @RequestParam(value = "important", required = false) Integer important,
                                           @RequestParam(value = "urgent", required = false) Integer urgent,
                                           @RequestParam(value = "status", required = false) Integer status,
-                                          @RequestParam(value = "pageSize", required = false, defaultValue = "1") Integer pageNo,
+                                          @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
                                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
     return Mono.create(monoSink -> monoSink.success(this.planService.getPagination(loginUserId, type, important, urgent, status, pageNo, pageSize)));
   }

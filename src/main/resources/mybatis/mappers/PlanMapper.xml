@@ -9,9 +9,9 @@
     <id column="important" property="important"/>
     <id column="urgent" property="urgent"/>
     <id column="note" property="note"/>
-    <id column="beginTime" property="beginTime"/>
-    <id column="endTime" property="endTime"/>
-    <id column="finishTime" property="finishTime"/>
+    <id column="begin_time" property="beginTime"/>
+    <id column="end_time" property="endTime"/>
+    <id column="finish_time" property="finishTime"/>
     <id column="ctime" property="ctime"/>
     <id column="cuser" property="cuser"/>
     <id column="mtime" property="mtime"/>
@@ -28,7 +28,7 @@
   <insert id="add">
     INSERT INTO `t_plan` (`id`, `type`, `important`, `urgent`, `note`, `begin_time`, `end_time`,
                           `ctime`, `cuser`, `mtime`, `muser`, `status`)
-    VALUES (#{id}, #{type}, #{important}, #{urgent}, #{note}, #{begin_time}, #{end_time},
+    VALUES (#{id}, #{type}, #{important}, #{urgent}, #{note}, #{beginTime}, #{endTime},
                    current_timestamp, #{cuser}, current_timestamp, #{muser}, #{status});
   </insert>
 
@@ -60,7 +60,7 @@
     </if>
   </select>
   <select id="getPagination" resultMap="BaseResultMap">
-    SELECT COUNT(*)
+    SELECT *
     FROM `t_plan`
     WHERE `status` != 0
     AND `cuser` = #{cuser}
@@ -76,7 +76,6 @@
     <if test="status!=null">
       AND `status` = #{status}
     </if>
-    /*超时 -> 待完成 -> 结束时间*/
     ORDER BY (`status` = 1 AND current_timestamp > `end_time`) DESC,(`status` = 1) DESC, `end_time` DESC
     LIMIT #{rowOffset},#{pageSize}
   </select>

@@ -100,21 +100,14 @@ export const constantRouterMap = [
       {
         path: 'index',
         name: 'PlanList',
-        component: () => import('../views/customer/index'),
+        component: () => import('../views/plan/index'),
         meta: { title: '计划列表', icon: 'form' }
       },
       {
         path: 'add',
         name: 'PlanAdd',
-        component: () => import('../views/customer/add'),
+        component: () => import('../views/plan/add'),
         meta: { title: '添加计划', icon: 'form' }
-      },
-      {
-        path: ':id',
-        name: 'PlanDetail',
-        component: () => import('../views/customer/update'),
-        hidden: true,
-        meta: { title: '查看|编辑计划', icon: 'form' }
       }
     ]
   },

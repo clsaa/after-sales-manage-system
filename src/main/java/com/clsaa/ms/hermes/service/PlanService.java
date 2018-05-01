@@ -43,7 +43,7 @@ public class PlanService {
       PlanV1 planV1 = new PlanV1();
       BeanUtils.copyProperties(plan, planV1);
       long now = System.currentTimeMillis();
-      if (now > planV1.getFinishTime().getTime() && planV1.getStatus() == Plan.STATUS_NO_FINISHED) {
+      if (now > planV1.getEndTime().getTime() && planV1.getStatus() == Plan.STATUS_NO_FINISHED) {
         planV1.setStatus(Plan.STATUS_ALREADY_OLD);
       }
       return planV1;
@@ -79,6 +79,7 @@ public class PlanService {
     try {
       count = this.planDao.add(plan);
     } catch (Exception e) {
+      e.printStackTrace();
       BizAssert.justFailed(BizCodes.ERROR_INSERT);
     }
     BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
@@ -103,7 +104,7 @@ public class PlanService {
       BizAssert.justFailed(BizCodes.ERROR_UPDATE);
     }
     BizAssert.pass(count == 1, BizCodes.ERROR_UPDATE);
-    return Mono.empty().then().block();
+    return null;
   }
 
   /**
@@ -124,7 +125,7 @@ public class PlanService {
       BizAssert.justFailed(BizCodes.ERROR_UPDATE);
     }
     BizAssert.pass(count == 1, BizCodes.ERROR_UPDATE);
-    return Mono.empty().then().block();
+    return null;
   }
 
   public Pagination<PlanV1> getPagination(String loginUserId, Integer type, Integer important, Integer urgent, Integer status, Integer pageNo, Integer pageSize) {
