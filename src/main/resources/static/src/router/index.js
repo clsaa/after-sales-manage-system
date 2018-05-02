@@ -25,6 +25,10 @@ export const constantRouterMap = [
   { path: '/login', component: () => import('../views/login/index'), hidden: true },
   { path: '/404', component: () => import('../views/404'), hidden: true },
   { path: '/', redirect: '/dashboard/index' },
+  { path: '/exposure/workorder/add', component: () => import('../views/exposure/workorder/add'), hidden: true },
+  { path: '/exposure/workorder/index', component: () => import('../views/exposure/workorder/index'), hidden: true },
+  { path: '/exposure/workorder/:id', component: () => import('../views/exposure/workorder/update'), hidden: true },
+
   {
     path: '/dashboard',
     redirect: '/dashboard/index',
@@ -66,28 +70,22 @@ export const constantRouterMap = [
   },
   {
     name: 'WorkOrder',
-    path: '/order',
+    path: '/workorder',
     component: Layout,
     meta: { title: '工单管理', icon: 'example' },
     children: [
       {
         path: 'index',
         name: 'WorkOrderList',
-        component: () => import('../views/customer/index'),
+        component: () => import('../views/workorder/index'),
         meta: { title: '工单列表', icon: 'form' }
       },
       {
-        path: 'add',
-        name: 'WorkOrderAdd',
-        component: () => import('../views/customer/add'),
-        meta: { title: '添加工单', icon: 'form' }
-      },
-      {
         path: ':id',
-        name: 'WorkOrderDetail',
-        component: () => import('../views/customer/update'),
+        name: 'WorkOrderUpdate',
+        component: () => import('../views/workorder/update'),
         hidden: true,
-        meta: { title: '查看|编辑工单', icon: 'form' }
+        meta: { title: '查看工单', icon: 'form' }
       }
     ]
   },
@@ -125,13 +123,13 @@ export const constantRouterMap = [
       },
       {
         path: 'add',
-        name: 'PlanAdd',
+        name: 'RepositoryAdd',
         component: () => import('../views/customer/add'),
         meta: { title: '添加知识数据', icon: 'form' }
       },
       {
         path: ':id',
-        name: 'PlanDetail',
+        name: 'RepositoryDetail',
         component: () => import('../views/customer/update'),
         hidden: true,
         meta: { title: '查看|编辑知识数据', icon: 'form' }

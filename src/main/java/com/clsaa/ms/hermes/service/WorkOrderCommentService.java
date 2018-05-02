@@ -2,6 +2,7 @@ package com.clsaa.ms.hermes.service;
 
 import com.clsaa.ms.hermes.config.BizCodes;
 import com.clsaa.ms.hermes.dao.WordOrderCommentDao;
+import com.clsaa.ms.hermes.dao.WorkOrderDao;
 import com.clsaa.ms.hermes.entity.po.WorkOrder;
 import com.clsaa.ms.hermes.entity.po.WorkOrderComment;
 import com.clsaa.ms.hermes.entity.vo.WorkOrderCommentV1;
@@ -26,6 +27,8 @@ public class WorkOrderCommentService {
   private WorkOrderService workOrderService;
   @Autowired
   private WordOrderCommentDao workOrderCommentDao;
+  @Autowired
+  private WorkOrderDao workOrderDao;
 
   private static WorkOrderCommentV1 valueOf(WorkOrderComment workOrderComment) {
     if (workOrderComment == null) {
@@ -51,9 +54,9 @@ public class WorkOrderCommentService {
   }
 
   public String addCustomerComment(String loginUserId, String workOrderId, String content) {
-    WorkOrderV1 workOrderV1 = this.workOrderService.getWorkOrderV1ById(workOrderId);
-    BizAssert.found(workOrderV1 != null, BizCodes.INVALID_PARAM.getCode(), "工单不存在");
-    String customerId = workOrderV1.getCustomerId();
+    WorkOrder workOrder = this.workOrderDao.getById(workOrderId);
+    BizAssert.found(workOrder != null, BizCodes.INVALID_PARAM.getCode(), "工单不存在");
+    String customerId = workOrder.getCustomerId();
     WorkOrderComment workOrderComment = new WorkOrderComment(UUIDUtil.getUUID(), workOrderId, customerId, "", content, customerId, customerId, WorkOrderComment.STATUS_OK);
     int count = 0;
     try {
@@ -71,6 +74,7 @@ public class WorkOrderCommentService {
     try {
       count = this.workOrderCommentDao.add(workOrderComment);
     } catch (Exception e) {
+      e.printStackTrace();
       BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
     }
     BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);

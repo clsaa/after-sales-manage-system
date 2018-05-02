@@ -2,18 +2,15 @@ package com.clsaa.ms.hermes.controller;
 
 import com.clsaa.ms.hermes.config.BizCodes;
 import com.clsaa.ms.hermes.constant.WorkOrderTypeEnum;
-import com.clsaa.ms.hermes.entity.dto.CustomerDtoV1;
-import com.clsaa.ms.hermes.entity.dto.WorkOrderCommentDtoV1;
 import com.clsaa.ms.hermes.entity.dto.WorkOrderDtoV1;
-import com.clsaa.ms.hermes.entity.vo.CustomerV1;
 import com.clsaa.ms.hermes.entity.vo.WorkOrderV1;
 import com.clsaa.ms.hermes.result.BizAssert;
 import com.clsaa.ms.hermes.result.Pagination;
-import com.clsaa.ms.hermes.service.WorkOrderCommentService;
 import com.clsaa.ms.hermes.service.WorkOrderService;
 import com.clsaa.ms.hermes.util.MobileValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.sql.Timestamp;
@@ -60,11 +57,26 @@ public class WorkOrderController {
                                           @RequestParam(value = "status", required = false) Integer status,
                                           @RequestParam(value = "beginTime", required = false) Long beginTime,
                                           @RequestParam(value = "endTime", required = false) Long endTime,
+                                          @RequestParam(value = "keyword", required = false) String keyword,
                                           @RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
                                           @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
     return Mono.create(monoSink ->
       monoSink.success(this.workOrderService.getPagination(loginUserId, type, status,
-        beginTime == null ? null : new Timestamp(beginTime), endTime == null ? null : new Timestamp(endTime), pageNo, pageSize)));
+        beginTime == null ? null : new Timestamp(beginTime), endTime == null ? null : new Timestamp(endTime), keyword, pageNo, pageSize)));
+  }
+
+  @GetMapping("/v1/customer/workorder/list")
+  public Flux<WorkOrderV1> getCustomerWorkOrderListV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
+                                                      @RequestParam(value = "type", required = false) Integer type,
+                                                      @RequestParam(value = "status", required = false) Integer status,
+                                                      @RequestParam(value = "beginTime", required = false) Long beginTime,
+                                                      @RequestParam(value = "endTime", required = false) Long endTime,
+                                                      @RequestParam(value = "mobile", required = false) String mobile) {
+    return Flux.create(fluxSink -> {
+      this.workOrderService.getCustomerWorkOrderList(loginUserId, type, status, beginTime == null ? null : new Timestamp(beginTime),
+        endTime == null ? null : new Timestamp(endTime), mobile).forEach(fluxSink::next);
+      fluxSink.complete();
+    });
   }
 
   @PutMapping("/v1/workorder/{id}/status")

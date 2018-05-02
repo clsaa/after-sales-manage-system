@@ -64,6 +64,10 @@ public class WorkOrderV1 {
    */
   private Timestamp finishTime;
   /**
+   * 创建时间
+   */
+  private Timestamp ctime;
+  /**
    * 状态,1为未处理,2为处理中,3为待补充,4为待确认结单,5为待评价,6为已撤销,7为已结单
    */
   private Integer status;

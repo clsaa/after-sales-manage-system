@@ -19,15 +19,15 @@
   <select id="getByWorkOrderId" resultMap="BaseResultMap">
     SELECT *
     FROM `t_work_order_comment`
-    WHERE `word_order_id` = #{workOrderId}
+    WHERE `work_order_id` = #{workOrderId}
           AND `status` = 1
-    ORDER BY `ctime` DESC
+    ORDER BY `ctime`
   </select>
 
   <insert id="add">
-    INSERT INTO `t_work_order_comment` (`id`, `word_order_id`, `customer_id`, `staff_id`, `content`,
+    INSERT INTO `t_work_order_comment` (`id`, `work_order_id`, `customer_id`, `staff_id`, `content`,
                                         `ctime`, `cuser`, `mtime`, `muser`, `status`)
-    VALUES (#{id}, #{word_order_id}, #{customer_id}, #{staff_id}, #{content},
+    VALUES (#{id}, #{workOrderId}, #{customerId}, #{staffId}, #{content},
             current_timestamp, #{cuser}, current_timestamp, #{muser}, #{status});
   </insert>
 </mapper>
