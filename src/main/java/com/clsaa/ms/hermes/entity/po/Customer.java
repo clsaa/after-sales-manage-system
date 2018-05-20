@@ -86,7 +86,7 @@ public class Customer {
   public Customer() {
   }
 
-  public Customer(String id, Integer type, String name, Integer age, Date birthday, Integer gender, String mobile, String email, String wechat, String qq, String note,String cuser,String muser, Integer status) {
+  public Customer(String id, Integer type, String name, Integer age, Date birthday, Integer gender, String mobile, String email, String wechat, String qq, String note, String cuser, String muser, Integer status) {
     this.id = id;
     this.type = type;
     this.name = name;

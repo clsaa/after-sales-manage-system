@@ -8,29 +8,26 @@ import org.springframework.http.HttpStatus;
  * @author 任贵杰
  */
 public class InvalidParameterException extends AbstractResultException {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	/**
-	 * @param code    业务错误码
-	 * @param message 业务提示信息
-	 */
-	public InvalidParameterException(int code, String message) {
-		super(code, message, HttpStatus.BAD_REQUEST);
-	}
+  /**
+   * @param code    业务错误码
+   * @param message 业务提示信息
+   */
+  public InvalidParameterException(int code, String message) {
+    super(code, message, HttpStatus.BAD_REQUEST);
+  }
 
 
-	/**
-	 * <p>
-	 * 业务错误码为 {@link ResultCode#UNKNOWN}
-	 * </p>
-	 *
-	 * @param message 业务提示信息
-	 * @since 1.0.0
-	 */
-	public InvalidParameterException(String message) {
-		super(message, HttpStatus.BAD_REQUEST);
+  /**
+   *
+   * @param message 业务提示信息
+   * @since 1.0.0
+   */
+  public InvalidParameterException(String message) {
+    super(message, HttpStatus.BAD_REQUEST);
 
-	}
+  }
 
 
 }

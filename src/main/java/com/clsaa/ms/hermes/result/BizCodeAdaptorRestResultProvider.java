@@ -11,8 +11,8 @@ public class BizCodeAdaptorRestResultProvider implements RestResultProvider {
    * SPI VIEW是否存在
    */
   private final boolean bizcodeExist =
-      ClassUtils.isPresent("com.clsaa.ms.hermes.result.BizCode",
-          this.getClass().getClassLoader());
+    ClassUtils.isPresent("com.clsaa.ms.hermes.result.BizCode",
+      this.getClass().getClassLoader());
 
   @Override
   public boolean support(Object source) {

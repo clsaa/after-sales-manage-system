@@ -1,7 +1,6 @@
 package com.clsaa.ms.hermes.dao;
 
 import com.clsaa.ms.hermes.entity.po.Customer;
-import com.clsaa.ms.hermes.entity.vo.CustomerV1;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -67,5 +66,5 @@ public interface CustomerDao {
    * @return {@link List<Customer>}
    */
   List<Customer> getPaginationList(@Param("type") Integer type, @Param("gender") Integer gender, @Param("keyword") String keyword,
-                                   @Param("rowOffset") int rowOffset,@Param("pageSize") int pageSize);
+                                   @Param("rowOffset") int rowOffset, @Param("pageSize") int pageSize);
 }

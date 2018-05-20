@@ -1,4 +1,3 @@
-
 package com.clsaa.ms.hermes.result.resolver;
 
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -32,17 +31,17 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
 public class ErrorWebFluxAutoConfiguration {
 
-	private final ServerProperties serverProperties;
+  private final ServerProperties serverProperties;
 
-	public ErrorWebFluxAutoConfiguration(ServerProperties serverProperties) {
-		this.serverProperties = serverProperties;
-	}
+  public ErrorWebFluxAutoConfiguration(ServerProperties serverProperties) {
+    this.serverProperties = serverProperties;
+  }
 
-	@Bean
-	@ConditionalOnMissingBean(value = ErrorAttributes.class, search = SearchStrategy.CURRENT)
-	public JsonErrorAttributes errorAttributes() {
-		return new JsonErrorAttributes(
-				this.serverProperties.getError().isIncludeException());
-	}
+  @Bean
+  @ConditionalOnMissingBean(value = ErrorAttributes.class, search = SearchStrategy.CURRENT)
+  public JsonErrorAttributes errorAttributes() {
+    return new JsonErrorAttributes(
+      this.serverProperties.getError().isIncludeException());
+  }
 
 }

@@ -6,7 +6,6 @@ import com.clsaa.ms.hermes.dao.WorkOrderDao;
 import com.clsaa.ms.hermes.entity.po.WorkOrder;
 import com.clsaa.ms.hermes.entity.po.WorkOrderComment;
 import com.clsaa.ms.hermes.entity.vo.WorkOrderCommentV1;
-import com.clsaa.ms.hermes.entity.vo.WorkOrderV1;
 import com.clsaa.ms.hermes.result.BizAssert;
 import com.clsaa.ms.hermes.util.UUIDUtil;
 import org.springframework.beans.BeanUtils;

@@ -3,8 +3,6 @@ package com.clsaa.ms.hermes.entity.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 /**
  * @author RenGuiJie
  * @version v1

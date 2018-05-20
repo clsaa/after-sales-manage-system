@@ -83,6 +83,7 @@ public interface WorkOrderDao {
 
   /**
    * 查询某个顾客的工单
+   *
    * @param customerId 顾客id
    * @param type       工单类型
    * @param status     工单状态
@@ -91,8 +92,8 @@ public interface WorkOrderDao {
    * @return {@link List<WorkOrderV1>}
    */
   List<WorkOrder> getCustomerWorkOrderList(@Param("customerId") String customerId,
-                                             @Param("type") Integer type,
-                                             @Param("status") Integer status,
-                                             @Param("beginTime") Timestamp beginTime,
-                                             @Param("endTime") Timestamp endTime);
+                                           @Param("type") Integer type,
+                                           @Param("status") Integer status,
+                                           @Param("beginTime") Timestamp beginTime,
+                                           @Param("endTime") Timestamp endTime);
 }

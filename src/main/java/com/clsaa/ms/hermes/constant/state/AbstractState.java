@@ -5,9 +5,10 @@ import com.clsaa.ms.hermes.result.BizAssert;
 
 /**
  * <p>
- *     状态模式
- *     工单状态的抽象父类，定义了状态的行为，用于修改工单订单状态是否合法
+ * 状态模式
+ * 工单状态的抽象父类，定义了状态的行为，用于修改工单订单状态是否合法
  * </p>
+ *
  * @author 任贵杰
  * @version v1
  * @summary 抽象状态

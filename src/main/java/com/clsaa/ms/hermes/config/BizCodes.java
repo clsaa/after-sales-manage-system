@@ -15,9 +15,13 @@ public interface BizCodes {
    */
   BizCode ERROR_INSERT = new BizCode(1010, "新增失败");
   /**
+   * 数据库删除失败
+   */
+  BizCode ERROR_DELETE = new BizCode(1011, "删除失败");
+  /**
    * 数据库更新失败
    */
-  BizCode ERROR_UPDATE = new BizCode(1011, "更新失败");
+  BizCode ERROR_UPDATE = new BizCode(1012, "更新失败");
   /**
    * 错误的目标工单状态
    */

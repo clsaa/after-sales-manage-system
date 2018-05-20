@@ -6,27 +6,27 @@ package com.clsaa.ms.hermes.result;
  * @author 任贵杰
  */
 public interface RestResult {
-	/**
-	 * 业务码（比如业务错误码或者其他Code）
-	 *
-	 * @return code
-	 */
-	int getCode();
+  /**
+   * 业务码（比如业务错误码或者其他Code）
+   *
+   * @return code
+   */
+  int getCode();
 
-	/**
-	 * 业务码的说明
-	 *
-	 * @return message
-	 */
-	String getMessage();
+  /**
+   * 业务码的说明
+   *
+   * @return message
+   */
+  String getMessage();
 
-	/**
-	 * 常见的内置业务码
-	 */
-	interface Codes {
-		/**
-		 * 未知原因
-		 */
-		int UNKNOWN = -1;
-	}
+  /**
+   * 常见的内置业务码
+   */
+  interface Codes {
+    /**
+     * 未知原因
+     */
+    int UNKNOWN = -1;
+  }
 }

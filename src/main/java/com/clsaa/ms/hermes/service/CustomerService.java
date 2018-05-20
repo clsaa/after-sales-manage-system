@@ -52,13 +52,13 @@ public class CustomerService {
   }
 
   public String add(String loginUserId, Integer type, String name, Integer age, Long birthday, Integer gender,
-                          String mobile, String email, String wechat, String qq, String note) {
+                    String mobile, String email, String wechat, String qq, String note) {
     Customer customer = new Customer(UUIDUtil.getUUID(), type, name, age, new Date(birthday), gender, mobile, email,
       wechat, qq, note, loginUserId, loginUserId, Customer.STATUS_OK);
     int count = 0;
     try {
-       count = this.customerDao.add(customer);
-    }catch (Exception e){
+      count = this.customerDao.add(customer);
+    } catch (Exception e) {
       BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
     }
     BizAssert.pass(count == 1, BizCodes.ERROR_INSERT);
@@ -116,7 +116,7 @@ public class CustomerService {
     //暂不处理异常情况
     return Flux.just(ids).map(id -> {
       Customer customerExist = this.customerDao.getById(id);
-      if (customerExist != null){
+      if (customerExist != null) {
         customerExist.setStatus(Customer.STATUS_DEL);
         this.customerDao.update(customerExist);
       }

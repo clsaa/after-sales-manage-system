@@ -159,14 +159,14 @@ public class WorkOrderService {
   }
 
   public List<WorkOrderV1> getCustomerWorkOrderList(String loginUserId, Integer type, Integer status, Timestamp beginTime, Timestamp endTime, String mobile) {
-    if (mobile == null){
+    if (mobile == null) {
       return Collections.emptyList();
     }
     CustomerV1 customerV1 = this.customerService.getCustomerV1ByMobile(mobile);
-    if (customerV1 == null){
+    if (customerV1 == null) {
       return Collections.emptyList();
     }
-    return this.workOrderDao.getCustomerWorkOrderList(customerV1.getId(),type, status, beginTime, endTime)
+    return this.workOrderDao.getCustomerWorkOrderList(customerV1.getId(), type, status, beginTime, endTime)
       .stream().map(WorkOrderService::valueOf).collect(Collectors.toList());
   }
 }
