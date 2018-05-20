@@ -22,4 +22,39 @@
     from `t_article`
     where `id` = #{id}
   </delete>
+  <update id="update">
+    update `t_article`
+    set `type`  = #{type},
+      `title`   = #{title},
+      `content` = #{content},
+      `mtime`   = #{mtime},
+      `muser`   = #{muser}
+    where `id` = #{id}
+  </update>
+
+  <select id="getById" resultMap="BaseResultMap">
+    select *
+    from `t_article`
+    where `id` = #{id}
+  </select>
+  <select id="getPaginationCount" resultType="java.lang.Integer">
+    select count(*)
+    from `t_article`
+    where 1=1
+    <if test="type!=null">
+      `type` = #{type}
+    </if>
+  </select>
+
+  <select id="getPaginationList" resultMap="BaseResultMap">
+    select *
+    from `t_article`
+    where 1=1
+    <if test="type!=null">
+      `type` = #{type}
+    </if>
+    ORDER BY `mtime` DESC
+    LIMIT #{rowOffset},#{pageSize}
+  </select>
+
 </mapper>

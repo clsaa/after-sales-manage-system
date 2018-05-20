@@ -110,29 +110,29 @@ export const constantRouterMap = [
     ]
   },
   {
-    name: 'Repository',
-    path: '/repository',
+    name: 'Article',
+    path: '/article',
     component: Layout,
     meta: { title: '知识库管理', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'RepositoryList',
-        component: () => import('../views/customer/index'),
+        name: 'ArticleList',
+        component: () => import('../views/article/index'),
         meta: { title: '知识库列表', icon: 'form' }
       },
       {
         path: 'add',
-        name: 'RepositoryAdd',
-        component: () => import('../views/customer/add'),
-        meta: { title: '添加知识数据', icon: 'form' }
+        name: 'ArticleAdd',
+        component: () => import('../views/article/add'),
+        meta: { title: '添加文章', icon: 'form' }
       },
       {
         path: ':id',
-        name: 'RepositoryDetail',
-        component: () => import('../views/customer/update'),
+        name: 'RepositoryUpdate',
+        component: () => import('../views/article/update'),
         hidden: true,
-        meta: { title: '查看|编辑知识数据', icon: 'form' }
+        meta: { title: '编辑文章', icon: 'form' }
       }
     ]
   },

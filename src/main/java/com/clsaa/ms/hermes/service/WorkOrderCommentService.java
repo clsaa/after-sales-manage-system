@@ -11,6 +11,7 @@ import com.clsaa.ms.hermes.util.UUIDUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +53,7 @@ public class WorkOrderCommentService {
       .collect(Collectors.toList());
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public String addCustomerComment(String loginUserId, String workOrderId, String content) {
     WorkOrder workOrder = this.workOrderDao.getById(workOrderId);
     BizAssert.found(workOrder != null, BizCodes.INVALID_PARAM.getCode(), "工单不存在");

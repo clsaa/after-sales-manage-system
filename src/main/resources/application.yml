@@ -10,9 +10,9 @@ spring:
     name: ms-after-sales
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://sh-cdb-42xoavqj.sql.tencentcdb.com:63280/db_hermes?characterEncoding=utf8
-    username: tangtang
-    password: tangtang520
+    url: jdbc:mysql://rm-bp15w0zoyrazx758l6o.mysql.rds.aliyuncs.com:3306/db_hermes?characterEncoding=utf8
+    username: hermes
+    password: TANGtang1995
     driver-class-name: com.mysql.jdbc.Driver
     max-active: 10
     max-idle: 5
@@ -28,3 +28,9 @@ mybatis:
   type-aliases-package: com.clsaa.ms.hermes.entity.po
 spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: true  #返回JSON统一日期为时间戳
 spring.jackson.serialization.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false
+
+alibaba.cloud.open.search:
+  accessKey: LTAIWLXboTlU69qV
+  accessSecret: nJ85QFoCm1YgBnfPmzml0Ob1hGRLuk
+  host: http://opensearch-cn-hangzhou.aliyuncs.com
+  appName: hermes
