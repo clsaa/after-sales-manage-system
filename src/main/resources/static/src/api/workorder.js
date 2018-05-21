@@ -60,3 +60,13 @@ export function addComment(workorderId, content, source) {
     }
   })
 }
+
+export function updateStatus(id, statusFrom, statusTo) {
+  return request({
+    url: '/v1/workorder/' + id + '/status',
+    method: 'put',
+    params: {
+      statusFrom, statusTo
+    }
+  })
+}

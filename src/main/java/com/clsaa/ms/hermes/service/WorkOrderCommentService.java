@@ -6,12 +6,14 @@ import com.clsaa.ms.hermes.dao.WorkOrderDao;
 import com.clsaa.ms.hermes.entity.po.WorkOrder;
 import com.clsaa.ms.hermes.entity.po.WorkOrderComment;
 import com.clsaa.ms.hermes.entity.vo.WorkOrderCommentV1;
+import com.clsaa.ms.hermes.entity.vo.WorkOrderV1;
 import com.clsaa.ms.hermes.result.BizAssert;
 import com.clsaa.ms.hermes.util.UUIDUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,9 +57,16 @@ public class WorkOrderCommentService {
 
   @Transactional(rollbackFor = Exception.class)
   public String addCustomerComment(String loginUserId, String workOrderId, String content) {
-    WorkOrder workOrder = this.workOrderDao.getById(workOrderId);
-    BizAssert.found(workOrder != null, BizCodes.INVALID_PARAM.getCode(), "工单不存在");
-    String customerId = workOrder.getCustomerId();
+    WorkOrderV1 workOrderV1 = this.workOrderService.getWorkOrderV1ById(workOrderId);
+    BizAssert.found(workOrderV1 != null, BizCodes.INVALID_PARAM.getCode(), "工单不存在");
+    long staffCommentCount = this.getWorkOrderCommentV1ByWorkOrderId(workOrderId)
+      .stream().filter(c -> StringUtils.isEmpty(c.getCustomerId())).count();
+    if (staffCommentCount > 0) {
+      this.workOrderService.updateStatus(loginUserId, workOrderV1.getId(), workOrderV1.getStatus(), WorkOrder.STATUS_PROCESSING);
+    } else {
+      this.workOrderService.updateStatus(loginUserId, workOrderV1.getId(), workOrderV1.getStatus(), WorkOrder.STATUS_PENDING);
+    }
+    String customerId = workOrderV1.getCustomerId();
     WorkOrderComment workOrderComment = new WorkOrderComment(UUIDUtil.getUUID(), workOrderId, customerId, "", content, customerId, customerId, WorkOrderComment.STATUS_OK);
     int count = 0;
     try {
@@ -70,6 +79,9 @@ public class WorkOrderCommentService {
   }
 
   public String addStaffComment(String loginUserId, String workOrderId, String content) {
+    WorkOrderV1 workOrderV1 = this.workOrderService.getWorkOrderV1ById(workOrderId);
+    BizAssert.found(workOrderV1 != null, BizCodes.INVALID_PARAM.getCode(), "工单不存在");
+    this.workOrderService.updateStatus(loginUserId, workOrderV1.getId(), workOrderV1.getStatus(), WorkOrder.STATUS_WAIT_SUPPLEMENTAL);
     WorkOrderComment workOrderComment = new WorkOrderComment(UUIDUtil.getUUID(), workOrderId, "", loginUserId, content, loginUserId, loginUserId, WorkOrderComment.STATUS_OK);
     int count = 0;
     try {

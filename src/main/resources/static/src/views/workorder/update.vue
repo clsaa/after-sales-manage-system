@@ -43,7 +43,7 @@
           </el-form>
           <div class="bottom clearfix">
             <time class="time">{{ new Date(workorder.ctime).toLocaleString() }}</time>
-            <el-button type="text" class="button">操作按钮</el-button>
+            <el-button type="text" class="button" @click="finishWorkOrder">申请结单</el-button>
           </div>
         </el-card>
       </el-col>
@@ -69,7 +69,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-form>
+    <el-form :hidden="this.workorder.status | staffEnableComment">
       <el-form-item>
         <el-input type="textarea" v-model="comment"></el-input>
       </el-form-item>
@@ -119,7 +119,8 @@
 <script>
   import {
     getById,
-    addComment
+    addComment,
+    updateStatus
   } from '../../api/workorder'
 
   export default {
@@ -166,6 +167,19 @@
           7: 'info'
         }
         return statusColorMap[status]
+      },
+      staffEnableComment(status) {
+        const staffEnableCommentMap = {
+          1: false,
+          2: false,
+          3: false,
+          4: true,
+          5: true,
+          6: true,
+          7: true
+        }
+        console.log(staffEnableCommentMap[status])
+        return staffEnableCommentMap[status]
       },
       typeNameFilter(type) {
         const typeMap = {
@@ -217,7 +231,6 @@
             })
           } else {
             this.workorder = response.data
-            console.log(JSON.stringify(this.workorder))
           }
         }).catch((err) => {
           this.$message({
@@ -242,6 +255,35 @@
               message: err.response.data.message
             })
           })
+      },
+      finishWorkOrder(row) {
+        this.$confirm('此操作会将工单变为待结单状态,只有待补充状态的订单才能提改为待结单, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.listLoading = true
+          if (this.workorder.status + '' !== '3') {
+            this.$message({
+              type: 'error',
+              message: '只有待补充状态的订单才能提改为待结单!'
+            })
+          }
+          updateStatus(this.workorder.id, this.workorder.status, 4).then(response => {
+            this.$message({
+              type: 'success',
+              message: '操作成功!'
+            })
+            this.$router.push({
+              path: '/workorder/index'
+            })
+          })
+        }).catch((err) => {
+          this.$message({
+            type: 'error',
+            message: err.response.data.message
+          })
+        })
       }
     }
   }

@@ -12,6 +12,7 @@ public class WaitSupplementalState extends AbstractState {
   @Override
   boolean doValidateState(OrderState stateTo) {
     return stateTo.equals(OrderState.处理中)
-      || stateTo.equals(OrderState.已撤销);
+      || stateTo.equals(OrderState.已撤销)
+      || stateTo.equals(OrderState.待确认结单);
   }
 }

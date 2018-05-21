@@ -36,7 +36,8 @@
               start-placeholder="开始日期"
               end-placeholder="结束日期"
               :default-time="['00:00:00', '23:59:59']"
-              :picker-options="pickerOptions">
+              :picker-options="pickerOptions"
+              @change="fetchData">
             </el-date-picker>
           </el-col>
         </el-form-item>
@@ -92,7 +93,9 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="80">
         <template slot-scope="scope">
-          <el-button type="text" size="small"><router-link :to="'/workorder/'+scope.row.id">处理</router-link></el-button>
+          <el-button type="text" size="small">
+            <router-link :to="'/workorder/'+scope.row.id">处理</router-link>
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -236,8 +239,10 @@
     methods: {
       fetchData() {
         this.listLoading = true
-        getPagination(this.searchCondition.type, this.searchCondition.status, this.searchCondition.beginTime,
-          this.searchCondition.endTime, this.searchCondition.keyword, this.pagination.pageNo, this.pagination.pageSize).then(response => {
+        const beginTime = this.searchCondition.beginAndEndTime.length > 0 ? this.searchCondition.beginAndEndTime[0].getTime() : null
+        const endTime = this.searchCondition.beginAndEndTime.length > 1 ? this.searchCondition.beginAndEndTime[1].getTime() : null
+        getPagination(this.searchCondition.type, this.searchCondition.status, beginTime,
+          endTime, this.searchCondition.keyword, this.pagination.pageNo, this.pagination.pageSize).then(response => {
           this.pagination = response.data
           this.listLoading = false
         }).catch((err) => {
