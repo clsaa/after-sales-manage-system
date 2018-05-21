@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-form ref="form" :model="form" label-width="120px">
       <el-form-item label="分类">
-        <el-select v-model="form.type" placeholder="计划分类" @change="fetchData">
+        <el-select v-model="form.type" placeholder="计划分类">
           <el-option label="安装及环境" value="1"></el-option>
           <el-option label="功能使用" value="2"></el-option>
           <el-option label="账号类" value="3"></el-option>

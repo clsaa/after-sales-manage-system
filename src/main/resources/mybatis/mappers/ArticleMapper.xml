@@ -42,7 +42,7 @@
     from `t_article`
     where 1=1
     <if test="type!=null">
-      `type` = #{type}
+    AND  `type` = #{type}
     </if>
   </select>
 
@@ -51,7 +51,7 @@
     from `t_article`
     where 1=1
     <if test="type!=null">
-      `type` = #{type}
+    AND  `type` = #{type}
     </if>
     ORDER BY `mtime` DESC
     LIMIT #{rowOffset},#{pageSize}

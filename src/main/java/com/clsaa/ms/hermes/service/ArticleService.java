@@ -79,6 +79,9 @@ public class ArticleService {
     BizAssert.found(article != null, BizCodes.INVALID_PARAM.getCode(), "无法找到对应文章");
     article.setMuser(loginUserId);
     article.setMtime(new Timestamp(System.currentTimeMillis()));
+    article.setType(type);
+    article.setTitle(title);
+    article.setContent(content);
     int count = 0;
     try {
       count = this.articleDao.update(article);
@@ -108,7 +111,7 @@ public class ArticleService {
       SearchParams searchParams = new SearchParams(config);
       //指定搜索的关键词，这里要指定在哪个索引上搜索，如果不指定的话默认在使用“default”索引（索引字段名称是您在您的数据结构中的“索引字段列表”中对应字段。），若需多个索引组合查询，需要在setQuery处合并，否则若设置多个setQuery子句，则后面的子句会替换前面子句
       searchParams.setQuery("content:'" + keyword + "'" + " OR " + "title:'" + keyword + "'");
-      if (type != 0) {
+      if (type != null) {
         //设置查询过滤条件
         searchParams.setFilter("type=" + type);
       }
@@ -147,5 +150,9 @@ public class ArticleService {
       pagination.setPageList(paginationList);
       return pagination;
     }
+  }
+
+  public ArticleV1 getArticleV1ById(String loginUserId, String articleId) {
+    return valueOf(this.articleDao.getById(articleId));
   }
 }

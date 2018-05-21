@@ -42,14 +42,14 @@
             </el-col>
           </el-form-item>
           <el-form-item label="手机号">
-            <el-input v-model="searchCondition.mobile" placeholder="请输入手机号" value=""></el-input>
+            <el-input v-model="searchCondition.mobile" placeholder="请输入手机号" value="" v-on:input ="fetchData"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="fetchData">查询</el-button>
           </el-form-item>
           <el-form-item>
             <el-button type="primary">
-              <router-link :to="'/exposure/workorder/add'">提交工单</router-link>
+              <router-link :to="'/exposure/workorder/article'">提交工单</router-link>
             </el-button>
           </el-form-item>
         </div>

@@ -26,6 +26,7 @@ export const constantRouterMap = [
   { path: '/404', component: () => import('../views/404'), hidden: true },
   { path: '/', redirect: '/dashboard/index' },
   { path: '/exposure/workorder/add', component: () => import('../views/exposure/workorder/add'), hidden: true },
+  { path: '/exposure/workorder/article', component: () => import('../views/exposure/workorder/article'), hidden: true },
   { path: '/exposure/workorder/index', component: () => import('../views/exposure/workorder/index'), hidden: true },
   { path: '/exposure/workorder/:id', component: () => import('../views/exposure/workorder/update'), hidden: true },
 

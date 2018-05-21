@@ -15,17 +15,11 @@
       <el-form-item label="关键字">
         <el-input v-model="searchCondition.keyword" placeholder="请输入要搜索的内容" value="" v-on:input ="fetchData"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary">
-          <router-link :to="'/article/add'">新增</router-link>
-        </el-button>
-      </el-form-item>
     </el-form>
     <el-table ref="multipleTable" :data="pagination.pageList" v-loading.body="listLoading"
               element-loading-text="Loading" fit
               highlight-current-row
               @selection-change="changed">
-      <el-table-column type="selection"></el-table-column>
       <el-table-column type="expand">
         <template slot-scope="scope">
           <el-form label-position="left" inline class="demo-table-expand">
@@ -63,15 +57,8 @@
           {{scope.row.title}}
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="130">
-        <template slot-scope="scope">
-          <el-button type="text" size="small">
-            <router-link :to="{path:'/article/'+scope.row.id}">编辑</router-link>
-          </el-button>
-          <el-button @click="del(scope.row)" type="text" size="small">删除</el-button>
-        </template>
-      </el-table-column>
     </el-table>
+
     <div class="block" align="right" v-model="pagination">
       <el-pagination
         @size-change="handleSizeChange"
@@ -82,7 +69,11 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total="pagination.totalCount">
       </el-pagination>
+      <el-button type="danger">
+        <router-link :to="'/exposure/workorder/add'">继续提交工单</router-link>
+      </el-button>
     </div>
+
   </div>
 </template>
 
@@ -100,9 +91,8 @@
 
 <script>
   import {
-    del,
     getPagination
-  } from '../../api/article'
+  } from '../../../api/article'
 
   export default {
     data() {
@@ -177,27 +167,6 @@
       handleCurrentChange(val) {
         this.pagination.pageNo = val
         this.fetchData()
-      },
-      del(row) {
-        this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.listLoading = true
-          del(row.id).then(response => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            })
-            this.fetchData()
-          })
-        }).catch((err) => {
-          this.$message({
-            type: 'error',
-            message: err.response.data.message
-          })
-        })
       },
       changed(selection) {
         this.selectedList = selection

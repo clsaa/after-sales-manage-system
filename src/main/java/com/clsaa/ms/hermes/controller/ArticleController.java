@@ -27,8 +27,8 @@ import java.io.IOException;
  * @summary 文章接口实现
  * @since 2018/5/20
  */
-@RestController
 @CrossOrigin
+@RestController
 public class ArticleController {
   @Autowired
   private ArticleService articleService;
@@ -67,6 +67,13 @@ public class ArticleController {
     this.doValidation(articleDtoV1.getType(), articleDtoV1.getTitle(), articleDtoV1.getContent());
     return Mono.create(monoSink ->
       monoSink.success(this.articleService.update(loginUserId, articleId, articleDtoV1.getType(), articleDtoV1.getTitle(), articleDtoV1.getContent())));
+  }
+
+  @GetMapping(value = "/v1/article/{articleId}")
+  public Mono<ArticleV1> updateV1(@RequestHeader(value = "Login-User-Id", defaultValue = "") String loginUserId,
+                                @PathVariable(value = "articleId") String articleId) {
+    return Mono.create(monoSink ->
+      monoSink.success(this.articleService.getArticleV1ById(loginUserId,articleId)));
   }
 
   @GetMapping("v1/article/search")
