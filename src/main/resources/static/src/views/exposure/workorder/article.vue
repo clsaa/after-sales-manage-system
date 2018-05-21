@@ -1,20 +1,28 @@
 <template>
   <div class="app-container">
-    <el-form :inline="true" :model="searchCondition" class="search-condition-form">
-      <el-form-item label="分类">
-        <el-select v-model="searchCondition.type" placeholder="计划分类" @change="fetchData">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="安装及环境" value="1"></el-option>
-          <el-option label="功能使用" value="2"></el-option>
-          <el-option label="账号类" value="3"></el-option>
-          <el-option label="计费和财务" value="4"></el-option>
-          <el-option label="备案及流程" value="5"></el-option>
-          <el-option label="其他" value="6"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="关键字">
-        <el-input v-model="searchCondition.keyword" placeholder="请输入要搜索的内容" value="" v-on:input ="fetchData"></el-input>
-      </el-form-item>
+    <el-form :model="searchCondition" class="search-condition-form" :label-position="left">
+      <el-row>
+        <el-col :span="12">
+          <el-form-item :span="6">
+            <el-select v-model="searchCondition.type" placeholder="问题类型" @change="fetchData">
+              <el-option label="不清楚" value=""></el-option>
+              <el-option label="安装及环境" value="1"></el-option>
+              <el-option label="功能使用" value="2"></el-option>
+              <el-option label="账号类" value="3"></el-option>
+              <el-option label="计费和财务" value="4"></el-option>
+              <el-option label="备案及流程" value="5"></el-option>
+              <el-option label="其他" value="6"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <el-form-item >
+            <el-input v-model="searchCondition.keyword" placeholder="请输入您的问题描述,系统会自动匹配相关内容" value="" v-on:input ="fetchData" :span="6"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
     <el-table ref="multipleTable" :data="pagination.pageList" v-loading.body="listLoading"
               element-loading-text="Loading" fit
@@ -144,6 +152,11 @@
       }
     },
     created() {
+      this.$notify({
+        title: '温馨提示',
+        message: '先在知识库中搜索您的问题,说不定您的问题能够更快的解决哦',
+        type: 'success'
+      })
       this.fetchData()
     },
     methods: {

@@ -44,7 +44,9 @@
             </el-form>
             <div class="bottom clearfix">
               <time class="time">{{ new Date(workorder.ctime).toLocaleString() }}</time>
-              <el-button type="text" class="button">操作按钮</el-button>
+              <el-button type="text" class="button" @click="cancelWorkOrder">撤销工单</el-button>
+              <h1></h1>
+              <el-button type="text" class="button" @click="sureFinishWorkOrder">确认结单</el-button>
             </div>
           </el-card>
         </el-col>
@@ -70,7 +72,7 @@
           </el-card>
         </el-col>
       </el-row>
-      <el-form>
+      <el-form  :hidden="this.workorder.status | customerEnableComment">
         <el-form-item>
           <el-input type="textarea" v-model="comment"></el-input>
         </el-form-item>
@@ -121,7 +123,8 @@
 <script>
   import {
     getById,
-    addComment
+    addComment,
+    updateStatus
   } from '../../../api/workorder'
 
   export default {
@@ -168,6 +171,19 @@
           7: 'info'
         }
         return statusColorMap[status]
+      },
+      customerEnableComment(status) {
+        const staffEnableCommentMap = {
+          1: false,
+          2: false,
+          3: false,
+          4: false,
+          5: true,
+          6: true,
+          7: true
+        }
+        console.log(staffEnableCommentMap[status])
+        return staffEnableCommentMap[status]
       },
       typeNameFilter(type) {
         const typeMap = {
@@ -244,6 +260,66 @@
               message: err.response.data.message
             })
           })
+      },
+      sureFinishWorkOrder() {
+        this.$confirm('此操作会将工单变为已结单状态, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.listLoading = true
+          if (this.workorder.status + '' !== '4') {
+            this.$message({
+              type: 'error',
+              message: '只有待结单的订单才能结单!'
+            })
+            return
+          }
+          updateStatus(this.workorder.id, this.workorder.status, 7).then(response => {
+            this.$message({
+              type: 'success',
+              message: '操作成功!'
+            })
+            this.$router.push({
+              path: '/exposure/workorder/index'
+            })
+          })
+        }).catch((err) => {
+          this.$message({
+            type: 'error',
+            message: err.response.data.message
+          })
+        })
+      },
+      cancelWorkOrder() {
+        this.$confirm('您要撤销此工单, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.listLoading = true
+          if (this.workorder.status + '' === '6' || this.workorder.status + '' === '7' || this.workorder.status + '' === '5') {
+            this.$message({
+              type: 'error',
+              message: '工单已完成不可结单!'
+            })
+            return
+          }
+          updateStatus(this.workorder.id, this.workorder.status, 6).then(response => {
+            this.$message({
+              type: 'success',
+              message: '操作成功!'
+            })
+            this.$router.push({
+              path: '/exposure/workorder/index'
+            })
+          })
+        }).catch((err) => {
+          this.$message({
+            type: 'error',
+            message: err.response.data.message
+          })
+        })
       }
     }
   }

@@ -216,14 +216,21 @@
       }
     },
     created() {
+      console.log('1')
+      this.searchCondition.mobile = sessionStorage.getItem('mobile') == null ? null : sessionStorage.getItem('mobile')
+      console.log('2')
       this.fetchData()
     },
     methods: {
       fetchData() {
         this.listLoading = true
+
         getCustomerWorkOrderList(this.searchCondition.type, this.searchCondition.status, this.searchCondition.beginTime,
           this.searchCondition.endTime, this.searchCondition.mobile).then(response => {
           this.list = response.data
+          if (response.data.length !== 0) {
+            sessionStorage.setItem('mobile', this.searchCondition.mobile)
+          }
           this.listLoading = false
         }).catch((err) => {
           this.listLoading = false

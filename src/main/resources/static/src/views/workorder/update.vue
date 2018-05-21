@@ -268,6 +268,7 @@
               type: 'error',
               message: '只有待补充状态的订单才能提改为待结单!'
             })
+            return
           }
           updateStatus(this.workorder.id, this.workorder.status, 4).then(response => {
             this.$message({
